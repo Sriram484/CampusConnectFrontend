@@ -281,20 +281,34 @@ const LoginStudent = (riveProps = {}) => {
       const dataToSend = {
         name: formData.name,
         email: formData.email,
+        lastname:"",
         password: formData.password,
         mobileNumber: formData.mobileNumber,
         courseId: formData.courseId,
         enquiryId: formData.enquiryId,
         type: formData.type,
+        headline: "",
+        about: "",
+        website: "",
+        linkedIn: "",
+        twitter: "",
+        faceBook: "",
+        youTube: "",
       };
 
       setFormData({
         name: "",
+        lastname: "",
         email: "",
+        headline: "",
+        about: "",
+        website: "",
+        linkedIn: "",
+        twitter: "",
+        faceBook: "",
+        youTube: "",
         password: "",
         mobileNumber: "",
-        courseId: "",
-        enquiryId: "",
         type: "",
       })
 

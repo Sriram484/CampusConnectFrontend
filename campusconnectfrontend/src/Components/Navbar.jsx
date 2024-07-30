@@ -70,7 +70,9 @@ function NavBar() {
       setAppBarBg('transparent')
     }
   }, [location])
-  // const navigate = useNavigate();
+
+
+  const navigate = useNavigate();
 
 
   const handleDrawerToggle = () => {
@@ -94,12 +96,7 @@ function NavBar() {
     window.scrollTo({ top: yCoordinate, behavior: 'smooth' });
   };
 
-  const handleNavigation = (path) => {
-    const basePath = window.location.origin;
-    const fullPath = `${basePath}${path}`;
-    window.location.replace(fullPath);
-    
-  };
+
 
   const drawer = (
     <ThemeProvider theme={theme}>
@@ -111,10 +108,10 @@ function NavBar() {
         <List>
           {navItems.map(({ name, path }) => (
             <ListItem key={name} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }} onClick={() => handleNavigation(path)}>
+              <ListItemButton sx={{ textAlign: 'center' }} >
                 <ListItemText
-                  // onClick={() => navigate(path,{ replace: true })}
-                  onClick={() => handleNavigation(path)}
+                  onClick={() => navigate(path,{ replace: true })}
+                  // onClick={() => handleNavigation(path)}
                 >
                   <Link smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
                     {name}
@@ -161,8 +158,8 @@ function NavBar() {
                       color: '#f5a425',
                     },
                   }}
-                  // onClick={() => navigate(path,{ replace: true })}
-                  onClick={() => handleNavigation(path)}
+                  onClick={() => navigate(path,{ replace: true })}
+                  // onClick={() => handleNavigation(path)}
 
                 >
                   <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>

@@ -96,44 +96,31 @@
       "type": "admin"
     },
     {
-      "id": "c9c8",
-      "name": "Rokhithran",
-      "email": "rok@gmail.com",
+      "id": "2ae8",
+      "name": "Vedaprakash",
+      "email": "sriram.rajkumart@gmail.com",
       "password": "Sriramraj@484",
-      "mobileNumber": "8456321789",
+      "mobileNumber": "7894561236",
       "courseId": [],
       "enquiryId": [],
       "type": "student"
     },
     {
-      "id": "2e0b",
+      "id": "9a26",
       "name": "Rokhithran",
-      "email": "sriram.rajkumart@gmail.com",
+      "email": "sriram@gmail.com",
       "password": "Sriramraj@484",
-      "mobileNumber": "1234567895",
-      "courseId": [],
-      "enquiryId": [],
-      "type": "student"
-    },
-    {
-      "id": "21d0",
-      "name": "Rokhithran",
-      "email": "sriram.rajkumart@gmail.com",
-      "password": "Sriramraj@484",
-      "mobileNumber": "9842206654",
-      "courseId": [],
-      "enquiryId": [],
-      "type": "student"
-    },
-    {
-      "id": "8fab",
-      "name": "Rokhithrannnnnn",
-      "email": "sriram.rajkumart@gmail.com",
-      "password": "Sriramraj@484",
-      "mobileNumber": "9874563211",
-      "courseId": [],
-      "enquiryId": [],
-      "type": "student"
+      "mobileNumber": "9500866654",
+      "courseId": "",
+      "enquiryId": "",
+      "type": "admin",
+      "headline": "Admin",
+      "about": "",
+      "website": "",
+      "linkedIn": "",
+      "twitter": "",
+      "faceBook": "",
+      "youTube": ""
     }
   ]
 }

@@ -12,31 +12,14 @@ import AdminDashboard from './Components/AdminDashboard';
 import "./Components/Context/UserData"
 import { UserDataProvider } from './Components/Context/UserData';
 import { CourseDataProvider } from './Components/Context/CourseData';
+import MainRoutingDashboard from './Components/Routings/MainRoutingDashboard';
 
 function App() {
   return (
     <div className="App">
       <UserDataProvider>
         <CourseDataProvider>
-        <Router>
-          <NavBar />
-          <Routes>
-
-            <Route exact path='/' element={<Home />} />
-            <Route exact path='/about' element={<About />} />
-            <Route exact path='/course' element={<Course />} />
-            <Route exact path='/login' element={<LoginStudent />} />
-            <Route exact path='/profile' element={<Profile />} />
-            <Route path='/dashboard' element={<AdminDashboard />} />
-          </Routes>
-        </Router>
-                {/* <NavBar/>
-              <Home/>
-              <About/>
-              <Course/>
-              <Profile/> */}
-                {/* <AdminDashboard/> */}
-
+          <MainRoutingDashboard/>
         <AiChat />
         </CourseDataProvider>
       </UserDataProvider>

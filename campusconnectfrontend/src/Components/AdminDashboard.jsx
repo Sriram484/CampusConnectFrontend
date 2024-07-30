@@ -159,17 +159,17 @@ const columns = [
     },
 ];
 
-function getStyles(name, courseName, theme) {
-    return {
 
-    };
-}
 
 function AdminDashboard() {
 
     const theme = useTheme();
     const { CourseDatabase, courseCategories } = useCourseData()
     const [courseName, setCourseName] = React.useState(courseCategories[0].name);
+
+    const handleSearchChange = (e)=>{
+        console.log(e.target.value);
+    }
 
     const handleChange = (event) => {
         const {
@@ -238,7 +238,7 @@ function AdminDashboard() {
                                 id="demo-multiple-name"
                                 sx={{ width: "300px", marginTop: "23px" }}
                                 value={courseName}
-                                onChange={handleChange}
+                                onChange={()=>{handleSearchChange}}
                                 input={<OutlinedInput label="Name" />}
                                 MenuProps={MenuProps}
                                 placeholder='Select the course'
@@ -261,6 +261,7 @@ function AdminDashboard() {
                                 <StyledInputBase
                                     placeholder="Search…"
                                     inputProps={{ 'aria-label': 'search' }}
+                                    onChange={handleChange}
                                 />
                             </Search>
                         </div>
