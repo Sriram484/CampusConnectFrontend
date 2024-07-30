@@ -14,3 +14,13 @@
     justify-content: space-between;
     align-items:end;
 }
+
+
+
+.Admin-Dashboard-Heading{
+    display: flex;
+    align-items: center;
+    margin-left: 40vw;
+    font-size: 32px;
+    font-weight: 700px;
+}

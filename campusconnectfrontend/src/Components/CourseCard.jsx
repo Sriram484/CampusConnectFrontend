@@ -19,6 +19,7 @@ const CourseCard = ({
   anchorEl,
   handlePopoverOpen,
   handlePopoverClose,
+  loading,
  }) => {
 
   const ratingValue = isNaN(Ratings) ? 0 : parseFloat(Ratings);
@@ -53,7 +54,7 @@ const CourseCard = ({
         <div className='Course-Card-Product-Body'>
           <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Name'>{Course_Name}</div>
           <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Author'>{Course_Author} </div>
-          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Rating'><span style={{ marginRight: "10px" }}>{ratingValue}</span><Rate allowHalf value={ratingValue} disabled /><span style={{ marginLeft: "10px" }}>({formattedNumber})</span></div>
+          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Rating'><span style={{ marginRight: "10px",display:loading ? 'none' : 'block' }}>{ratingValue}</span><Rate allowHalf value={ratingValue} disabled /><span style={{ marginLeft: "10px" }}>({formattedNumber})</span></div>
           <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Price'>₹{Price}</div>
         </div>
       </div>
@@ -78,13 +79,13 @@ const CourseCard = ({
       >
         <Box p={2} sx={{ width: '400px', padding: "15px", backgroundColor: 'white', boxShadow: 3, borderRadius: 1 }} onMouseLeave={handlePopoverClose}>
           <Typography sx={{ fontWeight: "700px", fontSize: "24px", color: "black" }} gutterBottom>
-            Web Development Masterclass - Online Certification Course
+            {Course_Name}
           </Typography>
           <Typography variant="body2" paragraph sx={{ fontSize: "12px", color: "green" }}>
             Updated September 2022
           </Typography>
           <Typography variant="body2" paragraph sx={{ fontSize: "12px", color: "grey" }}>
-            26 total hours | All Levels | Subtitles
+            {Course_Author}| 26 total hours | All Levels | Subtitles
           </Typography>
           <Typography variant="body2" paragraph sx={{ fontSize: "14px", color: "black" }}>
             Cloud Computing | Web Apps | Linux | Web Servers | DBMS | LAMP Stack | HTML | CSS | JavaScript | PHP | + More Understand the essentials of Local and Wide Area Networks

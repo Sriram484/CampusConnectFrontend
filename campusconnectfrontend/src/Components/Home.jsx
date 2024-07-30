@@ -10,6 +10,7 @@ import deo3 from "../Assets/Image/service-icon-03.png";
 import NavBar from "./Navbar";
 import About from "./About";
 import Course from "./Course";
+import { HashLoader } from "react-spinners";
 
 let customerReviews = [
   {
@@ -142,10 +143,37 @@ const Home = () => {
     }, 10); // Adjust delay as needed
     return () => clearTimeout(timeout);
   }, []);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+      setLoading(true);
+
+      setTimeout(() => {
+          setLoading(false);
+      }, 3000);
+
+  }, [])
   
   return (
     <>
-    <div className="Home-Container" id="home">
+         <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
+
+                    />
+          </div>
+    <div className="Home-Container" id="home" style={{visibility: loading ? 'hidden' : 'visible',}}>
  
       <video autoPlay loop muted playsInline className="background-video">
         <source src={BgVideo} type="video/mp4" width="100vw" height="100vh" />

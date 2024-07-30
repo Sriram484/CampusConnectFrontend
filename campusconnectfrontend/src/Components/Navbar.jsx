@@ -46,7 +46,7 @@ function NavBar() {
   const [appBarBg, setAppBarBg] = React.useState('transparent');
   const location = useLocation();
 
-  const { formData } = useFormData() || { formData: {} };
+  const { formData,setFormData } = useFormData() || { formData: {} };
   console.log(formData);
 
   // Determine which item to show in the navigation
@@ -96,13 +96,18 @@ function NavBar() {
     window.scrollTo({ top: yCoordinate, behavior: 'smooth' });
   };
 
+  const handleLogout = () => {
+    setFormData({}); // Clear user data
+    window.location.reload(); // Refresh the page
+  };
+
 
 
   const drawer = (
     <ThemeProvider theme={theme}>
       <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Typography variant="h6" sx={{ my: 2 }}>
-          Polar Portal
+          Campus Connect
         </Typography>
         <Divider />
         <List>
@@ -110,8 +115,8 @@ function NavBar() {
             <ListItem key={name} disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }} >
                 <ListItemText
-                  onClick={() => navigate(path,{ replace: true })}
-                  // onClick={() => handleNavigation(path)}
+                  onClick={() => navigate(path, { replace: true })}
+                // onClick={() => handleNavigation(path)}
                 >
                   <Link smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
                     {name}
@@ -120,6 +125,18 @@ function NavBar() {
               </ListItemButton>
             </ListItem>
           ))}
+          {formData.name && (
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLogout}>
+                <ListItemText>
+                  <Link smooth style={{ textDecoration: 'none', color: 'inherit' }}>
+                    Logout
+                  </Link>
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+          )}
+
         </List>
       </Box>
     </ThemeProvider>
@@ -147,7 +164,7 @@ function NavBar() {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              Polar Portal
+              Campus Connect
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {navItems.map(({ name, path }) => (
@@ -158,8 +175,8 @@ function NavBar() {
                       color: '#f5a425',
                     },
                   }}
-                  onClick={() => navigate(path,{ replace: true })}
-                  // onClick={() => handleNavigation(path)}
+                  onClick={() => navigate(path, { replace: true })}
+                // onClick={() => handleNavigation(path)}
 
                 >
                   <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
@@ -167,6 +184,21 @@ function NavBar() {
                   </div>
                 </Button>
               ))}
+              {formData.name && (
+                <Button key={formData.name}
+                  sx={{
+                    color: 'rgba(248, 248, 248, 1)',
+                    '&:hover': {
+                      color: '#f5a425',
+                    },
+                  }}
+                  onClick={handleLogout}
+                >
+                  <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
+                    Logout
+                  </div>
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
