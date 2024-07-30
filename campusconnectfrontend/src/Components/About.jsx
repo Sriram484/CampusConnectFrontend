@@ -33,11 +33,12 @@ function Counter({ endValue }) {
     return <div className="count-digit">{count}</div>;
   }
 
-const About = () => {
+  
+  const About = () => {
     const counterRef = useRef(null);
-
-   
- 
+    const [student,setStudents] = useState(9500);
+    const [course,setCourse] = useState(599);
+    const [awards,setAwards] = useState(64);
     return (
         <>
         <div className='About-Container' id='about'>
@@ -63,7 +64,7 @@ const About = () => {
                         <div className='About-Counter' ref={counterRef}>
                             <div className='About-Box'>
                                 <div className='About-Box-Title count-digit'>
-                                  9500
+                                  {student}
                                 </div>
                                 <div className='About-Box-SubHeading'>
                                     Students
@@ -71,7 +72,7 @@ const About = () => {
                             </div>
                             <div className='About-Box'>
                                 <div className='About-Box-Title count-digit'>
-                                  650
+                                  {course}
                                 </div>
                                 <div className='About-Box-SubHeading'>
                                     Courses
@@ -79,7 +80,7 @@ const About = () => {
                             </div>
                             <div className='About-Box'>
                                 <div className='About-Box-Title count-digit'>
-                                  64
+                                  {awards}
                                 </div>
                                 <div className='About-Box-SubHeading'>
                                     Awards

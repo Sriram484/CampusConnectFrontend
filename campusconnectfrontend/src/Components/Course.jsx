@@ -6,6 +6,7 @@ import CourseCard from './CourseCard';
 import NavBar from './Navbar';
 import { useCourseData } from './Context/CourseData';
 // import { useNavigate } from 'react-router';
+import "react-multi-carousel/lib/styles.css" 
 
 
 
@@ -37,14 +38,14 @@ const Course = () => {
     useEffect(() => {
         // Dynamically import the CSS for the carousel
         const loadCarouselCss = async () => {
-            await import("react-multi-carousel/lib/styles.css");
+            // await ;
             setIsLoaded(true);
         };
 
         // Delay to ensure the carousel is rendered before adding hidden class
         const timeout = setTimeout(() => {
             loadCarouselCss();
-        }, 10); // Adjust delay as needed
+        }, 1); // Adjust delay as needed
         return () => clearTimeout(timeout);
     }, []);
 

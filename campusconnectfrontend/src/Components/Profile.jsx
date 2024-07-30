@@ -3,15 +3,19 @@ import ProfilePic from "../Assets/Image/courseBg.jpg";
 import { Button, InputAdornment, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
 import { MuiFileInput } from 'mui-file-input'
 import "../Assets/CSS/Profile.css"
+import { useFormData } from "./Context/UserData";
 
 const Profile = () => {
+
+    const {formData} = useFormData();
+
     return (
         <div className="Profile-MainContainer">
             <div className="Profile-Basic-Container">
                 <div className="Profile-Left">
                     <div className="Profile-PicContainer">
                         <img src={ProfilePic} className="Profile-Pic-Container-Images" />
-                        <div className="ProfileName">Sriram</div>
+                        <div className="ProfileName">{formData.name}</div>
                     </div>
                     <div className="Profile-Options">
                         <div>Profile</div>
@@ -38,10 +42,10 @@ const Profile = () => {
                         <div className="Profile-Body">
                             <div className="Profile-Basic-Body">
                                 <div className="Profile-Basic-Subheader">Basics:</div>
-                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="First Name" variant="outlined" sx={{ marginTop: "20px" }} />
-                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Last Name" variant="outlined" sx={{ marginTop: "20px" }} />
-                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Headline" variant="outlined" sx={{ marginTop: "20px" }} />
-                                <TextField id="outlined-multiline-flexible" className="Profile-Basic-Body-Input" label="About Yourself" multiline rows={4} sx={{ marginTop: "20px",marginBottom:"20px" }} />
+                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="First Name" variant="outlined" value ={formData.name||""} sx={{ marginTop: "20px" }} />
+                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Last Name" variant="outlined" value ={formData.lastname||""}  sx={{ marginTop: "20px" }} />
+                                <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Headline" variant="outlined" value ={formData.headline||""} sx={{ marginTop: "20px" }} />
+                                <TextField id="outlined-multiline-flexible" className="Profile-Basic-Body-Input" label="About Yourself" value ={formData.about||""} multiline rows={4} sx={{ marginTop: "20px",marginBottom:"20px" }} />
                                 {/* <Select
                                     labelId="demo-multiple-name-label"
                                     id="demo-multiple-name"
