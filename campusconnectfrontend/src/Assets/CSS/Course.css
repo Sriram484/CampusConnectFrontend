@@ -1,0 +1,141 @@
+* {
+  font-weight: 400;
+  font-style: normal;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.Course-Body {
+  width: 100vw;
+  min-height: 100vh;
+  /* max-height: fit-content; */
+  color: black;
+  background-color: #ffffff;
+
+}
+
+.Course-Body {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.Course-Headings {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  
+}
+
+.Course-MainHeading {
+  margin: 30px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 50px;
+  color: rgb(255, 115, 80);
+}
+.Course-SubHeading {
+  font-size: 26px;
+  margin: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: rgb(18, 88, 117);
+}
+
+.Course-List {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  /* margin-bottom: 20px; */
+}
+
+.Course-List div {
+  padding: 0 1rem;
+  width: fit-content;
+  cursor: pointer;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+}
+
+.Course-List div.Active {
+  text-decoration: underline;
+}
+
+.Course-List div:last-child {
+}
+
+.Course-Carousel {
+  margin-left: 10px;
+  margin-right: 10px;
+  min-height: max-content;
+}
+.Course-Carousel {
+  display: inline-block;
+  justify-content: center;
+}
+
+.List_Headings {
+  min-width: 170px;
+}
+
+.carousel-items {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+}
+
+.Course-Carousel .CourseCardListerBody .react-multi-carousel-track {
+  min-height: 350px;
+}
+
+.CourseCardListerBody{
+  min-height: 400px;
+}
+
+.category-item  :hover{
+  font-weight: 700;
+}
+.Course-List .react-multi-carousel-list {
+
+}
+
+.activeNavCourse{
+  text-decoration: underline; /* Underline for active category */
+  text-decoration-thickness: 2px; /* Thickness of the underline */
+  text-decoration-color: black; /* Color of the underline */
+  text-underline-offset: 6px; /* Space between text and underline */
+}
+
+.Course-List .react-multi-carousel-list .react-multi-carousel-track .react-multi-carousel-item{
+  max-width: fit-content;
+}
+
+@media (max-width: 650px) {
+  .react-multi-carousel-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Course-MainHeading{
+    font-size: 40px;
+  }
+
+  .Course-SubHeading{
+    font-size: 24px;
+  }
+
+
+  .Course-List div{
+    font-size: 18px;
+  }
+
+}

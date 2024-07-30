@@ -1,0 +1,77 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Almendra+SC&family=Comfortaa:wght@300..700&family=Jersey+25&family=Lobster&family=Satisfy&family=Silkscreen:wght@400;700&family=Yatra+One&display=swap"); */
+* {
+
+  font-weight: 400;
+  font-style: normal;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.Course-Card-Body {
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+ 
+  border-bottom: 50px;
+  /* max-height: 350px; */
+  min-width: 300px;
+  max-width: max-content;
+  /* border: 0.1px black solid; */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  color: black;
+}
+
+.Course-Card-Product-Image {
+    min-height: 170px; 
+    /* max-height: 170px;  */
+    min-width: 300px;
+    max-width: 300px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.Course-Card-Body {
+    min-width: 300px;
+    max-width: 300px;
+    
+}
+
+.Course-Card-Name{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.Course-Card-Author{
+    font-size: 14px;
+    font-weight: 400;
+    color: #949494;
+}
+
+.Course-Card-Rating{
+    font-size: 16px;
+    font-weight: 700;
+}
+.Course-Card-Price{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.Course-Card-Product-Body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 10px;
+  padding-left: 30px;
+  min-width: 300px;
+  max-width: 300px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.Course-Card-Elements{
+  margin-top: 10px;
+}
+
+

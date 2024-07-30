@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.Home-Container {
+    position: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+    background-color: rgba(31,39,43,0.75);
+  }
+  
+  .background-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .Home-Content{
+    margin-top: 50px;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  }
+
+  .Home-Title{
+    font-size: 32px;
+    text-align: left;
+    width: 100vw;
+    font-weight: 900;
+    color: #fff;
+  }
+  
+  .Home-Description{
+    font-size: 16px;
+    max-width: 60vw;
+  }
+
+  .Home-Join-Button{
+    min-width: 90px;
+    min-height: 20px;
+    padding: 12px 30px;
+    border-radius :22px;
+    color: #fff;
+    background-image: url("../Image/Home-Carousel.jpg");
+    border: 0;
+    font-size: 13px;
+  }
+  
+  .Home-Card-Container{
+    max-height: fit-content;
+    margin-top: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .Home-Card-Body{
+    background-image: url("../Image/Home-Carousel.jpg");
+  }
+  .Home-Card-Body-Content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+
+  }
+  
+  @media(max-width : 700px){
+    .Home-Title{
+      font-size: 28px;
+    }
+    .Home-Description{
+      min-width: 95vw;
+    }
+    .react-multi-carousel-item{
+      justify-content: center;
+      /* margin-left: 60px; */
+    }
+  }
+  @media(max-width : 480px){
+    .Home-Title{
+      font-size: 24px;
+    }
+
+    .Home-Description{
+      font-size: 12px;
+    }
+    .Home-NoMobile{
+      display: none;
+
+    }
+  }
