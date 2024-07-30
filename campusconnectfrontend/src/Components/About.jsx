@@ -5,6 +5,7 @@ import TopPic from "../Assets/Image/AboutTopPic.jpg"
 import BottomPic from "../Assets/Image/AboutBottomPic.jpg"
 import NavBar from './Navbar';
 import Course from './Course';
+import { HashLoader } from 'react-spinners';
 
 function Counter({ endValue }) {
     const [count, setCount] = useState(0);
@@ -39,9 +40,36 @@ function Counter({ endValue }) {
     const [student,setStudents] = useState(9500);
     const [course,setCourse] = useState(599);
     const [awards,setAwards] = useState(64);
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+
+    }, [])
     return (
         <>
-        <div className='About-Container' id='about'>
+        <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
+
+                    />
+          </div>
+        <div className='About-Container' id='about' style={{visibility: loading ? 'hidden' : 'visible'}}>
            <div className='About-Left'  style={{marginTop:"50px"}}>
                 <div className='About-Left-Top-Pic'>
                     <img src={TopPic} alt="" />

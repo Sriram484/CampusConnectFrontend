@@ -39,6 +39,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AdbIcon from '@mui/icons-material/Adb';
+import { HashLoader } from 'react-spinners';
 const drawerWidth = 240;
 
 
@@ -167,9 +168,6 @@ function AdminDashboard() {
     const { CourseDatabase, courseCategories } = useCourseData()
     const [courseName, setCourseName] = React.useState(courseCategories[0].name);
 
-    const handleSearchChange = (e)=>{
-        console.log(e.target.value);
-    }
 
     const handleChange = (event) => {
         const {
@@ -181,157 +179,205 @@ function AdminDashboard() {
         );
     };
 
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+        console.log(searchTerm);
+    };
+
+    const filteredRows = CourseDatabase[courseName]
+        .filter(row =>
+            columns.some(column =>
+                row[column.id] ? row[column.id].toString().toLowerCase().includes(searchTerm.toLowerCase()) : false
+            )
+        );
+
+        const [loading, setLoading] = React.useState(false)
+
+        React.useEffect(() => {
+            setLoading(true);
+    
+            setTimeout(() => {
+                setLoading(false);
+            }, 3000);
+    
+        }, [])
+
 
     return (
-        <Box sx={{
-            display: 'flex', minHeight: "110vh",
-        }}>
-            <NavBar />
-            <Drawer
-                variant="permanent"
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    marginTop: "64px",
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', marginTop: "64px" },
-                }}
-            >
-                <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                        {['Course', 'Users', 'Enquiry', 'Cost Management'].map((text) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {iconMap[text] || <AttachMoneyIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['User Charts', 'Course Charts', 'AI Key'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {iconMap[text] || <AttachMoneyIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "64px" }}>
+        <>
+             <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
 
-                <div className='Admin-Dashboard-Container'>
-                    <div className='Admin-Dashboard-Heading'>
-                        Course Dashboard
-                    </div>
+                    />
+          </div>
+            <Box sx={{
+                display: 'flex', minHeight: "110vh",visibility: loading ? 'hidden' : 'visible',
+            }}>
+                <NavBar />
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        width: drawerWidth,
+                        flexShrink: 0,
+                        marginTop: "64px",
+                        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', marginTop: "64px" },
+                    }}
+                >
+                    <Box sx={{ overflow: 'auto' }}>
+                        <List>
+                            {['Course', 'Users', 'Enquiry', 'Cost Management'].map((text) => (
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            {iconMap[text] || <AttachMoneyIcon />}
+                                        </ListItemIcon>
+                                        <ListItemText primary={text} />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
+                        <Divider />
+                        <List>
+                            {['User Charts', 'Course Charts', 'AI Key'].map((text, index) => (
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            {iconMap[text] || <AttachMoneyIcon />}
+                                        </ListItemIcon>
+                                        <ListItemText primary={text} />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop: "64px" }}>
 
-                    <div className='Admin-Dashboard-Body'>
-                        <div className='Admin-Dashboard-Selector'>
-                            <Select
-                                labelId="demo-multiple-name-label"
-                                id="demo-multiple-name"
-                                sx={{ width: "300px", marginTop: "23px" }}
-                                value={courseName}
-                                onChange={()=>{handleSearchChange}}
-                                input={<OutlinedInput label="Name" />}
-                                MenuProps={MenuProps}
-                                placeholder='Select the course'
-                            >
-                                {courseCategories.map(({ id, name }) => (
-                                    <MenuItem
-                                        key={name}
-                                        value={name}
-                                    >
-                                        {name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                    <div className='Admin-Dashboard-Container'>
+                        <div className='Admin-Dashboard-Heading'>
+                            Course Dashboard
                         </div>
-                        <div className='Admin-Dashboard-SearchBar'>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
+
+                        <div className='Admin-Dashboard-Body'>
+                            <div className='Admin-Dashboard-Selector'>
+                                <Select
+                                    labelId="demo-multiple-name-label"
+                                    id="demo-multiple-name"
+                                    sx={{ width: "300px", marginTop: "23px" }}
+                                    value={courseName}
                                     onChange={handleChange}
-                                />
-                            </Search>
+                                    // input={<OutlinedInput label="Name" />}
+                                    MenuProps={MenuProps}
+                                    placeholder='Select the course'
+                                >
+                                    {courseCategories.map(({ id, name }) => (
+                                        <MenuItem
+                                            key={name}
+                                            value={name}
+                                        >
+                                            {name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </div>
+                            <div className='Admin-Dashboard-SearchBar'>
+                                <Search>
+                                    <SearchIconWrapper>
+                                        <SearchIcon />
+                                    </SearchIconWrapper>
+                                    <StyledInputBase
+                                        placeholder="Search…"
+                                        inputProps={{ 'aria-label': 'search' }}
+                                        onChange={handleSearchChange}
+
+                                    />
+                                </Search>
+                            </div>
                         </div>
+
+                        <div className='Admin-Dashboard-Body'>
+
+                        </div>
+
+
                     </div>
 
-                    <div className='Admin-Dashboard-Body'>
+                    <Box>
 
-                    </div>
-
-
-                </div>
-
-                <Box>
-
-                    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: "10px" }}>
-                        <TableContainer sx={{ maxHeight: 440 }}>
-                            <Table stickyHeader aria-label="sticky table">
-                                <TableHead sx={{ backgroundColor: "black", color: "white" }}>
-                                    <TableRow sx={{ backgroundColor: "black", color: "white" }}>
-                                        {columns.map((column) => (
-                                            <StyledTableCell
-                                                key={column.id}
-                                                align={column.align}
-                                                style={{ minWidth: column.minWidth }}
-                                            >
-                                                {column.label}
-                                            </StyledTableCell>
-                                        ))}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {CourseDatabase[courseName]
-                                        // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row, index) => {
-                                            console.log(row);
-                                            return (
-                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                                    {columns.map((column) => {
-                                                        let value;
-                                                        if (column.id === 's.no') {
-                                                            value = index + 1;
-                                                        }
-                                                        else {
-                                                            value = row[column.id];
-                                                        }
-                                                        console.log(index);
-
-
-                                                        return (
-                                                            <TableCell key={column.id} align={column.align}>
-                                                                {column.id === 'action' ? (
-                                                                    <div>
-                                                                        <Button >Edit</Button>
-                                                                        <Button >Delete</Button>
-                                                                    </div>
-                                                                ) : (
-                                                                    column.format && typeof value === 'number'
-                                                                        ? column.format(value)
-                                                                        : value
-                                                                )}
-                                                            </TableCell>
-                                                        );
-                                                    })}
-                                                </TableRow>
-                                            );
-                                        })}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        {/* <TablePagination
+                        <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: "10px" }}>
+                            <TableContainer sx={{ maxHeight: 440 }}>
+                                <Table stickyHeader aria-label="sticky table">
+                                    <TableHead sx={{ backgroundColor: "black", color: "white" }}>
+                                        <TableRow sx={{ backgroundColor: "black", color: "white" }}>
+                                            {columns.map((column) => (
+                                                <StyledTableCell
+                                                    key={column.id}
+                                                    align={column.align}
+                                                    style={{ minWidth: column.minWidth }}
+                                                >
+                                                    {column.label}
+                                                </StyledTableCell>
+                                            ))}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {filteredRows
+                                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            .map((row, index) => {
+                                                return (
+                                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                                        {columns.map((column) => {
+                                                            let value;
+                                                            if (column.id === 's.no') {
+                                                                value = index + 1;
+                                                            }
+                                                            else {
+                                                                value = row[column.id];
+                                                            }
+                                                            return (
+                                                                <TableCell key={column.id} align={column.align}>
+                                                                    {column.id === 'action' ? (
+                                                                        <div>
+                                                                            <Button >Edit</Button>
+                                                                            <Button >Delete</Button>
+                                                                        </div>
+                                                                    ) :
+                                                                        column.id === 'Image' ?
+                                                                            (
+                                                                                <div>
+                                                                                    <img src={`${value}`} />
+                                                                                </div>
+                                                                            )
+                                                                            :
+                                                                            (
+                                                                                column.format && typeof value === 'number'
+                                                                                    ? column.format(value)
+                                                                                    : value
+                                                                            )}
+                                                                </TableCell>
+                                                            );
+                                                        })}
+                                                    </TableRow>
+                                                );
+                                            })}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            {/* <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
                             count={rows.length}
@@ -340,14 +386,15 @@ function AdminDashboard() {
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         /> */}
-                    </Paper>
+                        </Paper>
 
+
+                    </Box>
 
                 </Box>
 
             </Box>
-
-        </Box>
+        </>
     );
 }
 

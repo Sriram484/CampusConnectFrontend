@@ -12,7 +12,8 @@
 .Course-Card-Body {
   display: flex;
   flex-direction: column;
-  min-height: 350px;
+  min-height: 400px;
+  max-height: 400px;
  
   border-bottom: 50px;
   /* max-height: 350px; */

@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { useFormData } from './Context/UserData';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { HashLoader } from 'react-spinners';
 
 
 const STATE_MACHINE_NAME = 'Login Machine';
@@ -356,8 +357,36 @@ const LoginStudent = (riveProps = {}) => {
     }
   }, [authMode]);
 
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+      setLoading(true);
+
+      setTimeout(() => {
+          setLoading(false);
+      }, 3000);
+
+  }, [])
+
   return (
     <>
+         <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
+
+                    />
+          </div>
       {authMode ? (
         <div
           className="Auth-form-container"
@@ -365,7 +394,8 @@ const LoginStudent = (riveProps = {}) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            visibility: loading ? 'hidden' : 'visible',
           }}
         >
           <div className='Riv-container'>

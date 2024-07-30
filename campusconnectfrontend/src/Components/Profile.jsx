@@ -1,20 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfilePic from "../Assets/Image/courseBg.jpg";
 import { Button, InputAdornment, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
 import { MuiFileInput } from 'mui-file-input'
 import "../Assets/CSS/Profile.css"
 import { useFormData } from "./Context/UserData";
-
+import { HashLoader } from "react-spinners";
+import Avatar from '@mui/material/Avatar';
 const Profile = () => {
 
     const {formData} = useFormData();
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+
+    }, [])
 
     return (
-        <div className="Profile-MainContainer">
+        <>
+             <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
+                    />
+          </div>
+        <div className="Profile-MainContainer" style={{visibility: loading ? 'hidden' : 'visible'}}>
+
             <div className="Profile-Basic-Container">
                 <div className="Profile-Left">
                     <div className="Profile-PicContainer">
-                        <img src={ProfilePic} className="Profile-Pic-Container-Images" />
+                        {/* <img src={ProfilePic} className="Profile-Pic-Container-Images" />*/}
+                        <Avatar sx={{ backgroundColor:"black",height:"120px",width:"120px"}} aria-label="avatar">
+                            <span style={{fontSize:"32px"}}>{formData.name.charAt(0)}</span>
+                        </Avatar>
                         <div className="ProfileName">{formData.name}</div>
                     </div>
                     <div className="Profile-Options">
@@ -113,7 +145,9 @@ const Profile = () => {
                 </div>
             </div> */}
         </div>
+        </>
     );
+
 };
 
 export default Profile;

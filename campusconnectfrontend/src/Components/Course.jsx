@@ -6,19 +6,14 @@ import CourseCard from './CourseCard';
 import NavBar from './Navbar';
 import { useCourseData } from './Context/CourseData';
 // import { useNavigate } from 'react-router';
-import "react-multi-carousel/lib/styles.css" 
-
-
-
-
-
-
+import "react-multi-carousel/lib/styles.css"
+import HashLoader from "react-spinners/HashLoader";
 
 const Course = () => {
 
     const [activeCategory, setActiveCategory] = useState("19");
     // const navigate = useNavigate();
-    const {CourseDatabase,courseCategories} = useCourseData()
+    const { CourseDatabase, courseCategories } = useCourseData()
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [hiddenElements, setHiddenElements] = useState([]);
@@ -28,7 +23,7 @@ const Course = () => {
     console.log(CourseDatabase);
     const [activeCourseData, setActiveCourseData] = useState(CourseDatabase[activeNavCourse]);
     console.log(activeCourseData);
-    
+
     // Function to handle clicking on a category
     const handleCategoryClick = (category) => {
         setActiveNavCourse(category);
@@ -186,244 +181,92 @@ const Course = () => {
             Image: "https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg",
         },
     ];
-    
+
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setLoading(true);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+
+    }, [])
 
 
     return (
-        <div className='Course-Container' id='course' style={{marginTop:"50px"}}>
-          
-            <div className='Course-Body'>
-                <div className='Course-Headings'>
-                    <div className='Course-MainHeading'>
-                        All the Skills In One Place
-                    </div>
-                    <div className='Course-SubHeading'>
-                        From critical skills to technical topics,
-                        Polar Portal supports your professional development.
-                    </div>
-                </div>
 
-                <div className='Course-List'>
-                    <Carousel
-                        responsive={CourseNavResponsive}
-                        arrows={false}
-                    >
-                        {courseCategories.map((cat) => (
-                            <div
-                                key={cat.name}
-                                className={`category-item ${activeNavCourse === cat.name ? "activeNavCourse" : ""
-                                    }`}
-                                onClick={() => handleCategoryClick(cat.name)}
-                            >
-                                {cat.name}
-                            </div>
-                        ))}
-                        <div >
-                            Anything Else?
+        <div className='Course-Container' id='course' style={{ marginTop: "50px" }}>
+                <div  style={{
+                    visibility: loading ? 'visible' : 'hidden',
+                    display: loading ? 'flex' : 'none',
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: 'fixed', // Fix the position of the loader
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                    zIndex: 9999, // Ensure it appears above other content
+                }}>
+                    <HashLoader
+
+                    />
+                </div>
+                <div className='Course-Body'  style={{visibility: loading ? 'hidden' : 'visible'}}>
+                    <div className='Course-Headings'>
+                        <div className='Course-MainHeading'>
+                            All the Skills In One Place
                         </div>
-                    </Carousel>
-                </div>
-                <div className="Course-Carousel">
-                    <Carousel responsive={courseCloud} className='CourseCardListerBody'>
-                        {activeCourseData.map((course, index) => (
-                            <CourseCard
-                                key={index}
-                                Course_Name={course.Course_Name}
-                                Course_Author={course.Course_Author}
-                                Ratings={course.Ratings}
-                                Price={course.Price}
-                                NoOfCustomers={course.NoOfCustomers}
-                                Image={course.Image}
-                                open={open && currentCard === index}
-                                anchorEl={anchorEl}
-                                handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                                handlePopoverClose={handlePopoverClose}
-                            />
-                        ))}
-                        {/* <CourseCard
-                            Course_Name="Amazon AWS Serverless APIs & Apps"
-                            Course_Author="Academind by Maximilian Schwarzmüller"
-                            Ratings="4.5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/950390_270f_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="4.5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/3291970_afb5_2.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="3.5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2430492_5cdb_8.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2365628_0b60_9.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="Amazon AWS Serverless APIs & Apps"
-                            Course_Author="Academind by Maximilian Schwarzmüller"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/950390_270f_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/3291970_afb5_2.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2430492_5cdb_8.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2365628_0b60_9.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="Amazon AWS Serverless APIs & Apps"
-                            Course_Author="Academind by Maximilian Schwarzmüller"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/950390_270f_3.jpg"
-                            open={open && currentCard === index}
-                            anchorEl={anchorEl}
-                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                            handlePopoverClose={handlePopoverClose}
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/3291970_afb5_2.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2430492_5cdb_8.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        />
-                        <CourseCard
-                            Course_Name="How to Suc"
-                            Course_Author="Sriram"
-                            Ratings="5"
-                            Price="499"
-                            NoOfCustomers="9985"
-                            Image="https://img-c.udemycdn.com/course/240x135/2365628_0b60_9.jpg
-                             open={open && currentCard === index}
-            anchorEl={anchorEl}
-            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-            handlePopoverClose={handlePopoverClose}"
-                        /> */}
-                    </Carousel>
-                </div>
-            </div>
+                        <div className='Course-SubHeading'>
+                            From critical skills to technical topics,
+                            Polar Portal supports your professional development.
+                        </div>
+                    </div>
 
+                    <div className='Course-List' style={{visibility: loading ? 'hidden' : 'visible'}}>
+                        <Carousel
+                            responsive={CourseNavResponsive}
+                            arrows={false}
+                        >
+                            {courseCategories.map((cat) => (
+                                <div
+                                    key={cat.name}
+                                    className={`category-item ${activeNavCourse === cat.name ? "activeNavCourse" : ""
+                                        }`}
+                                    onClick={() => handleCategoryClick(cat.name)}
+                                >
+                                    {cat.name}
+                                </div>
+                            ))}
+                            <div >
+                                Anything Else?
+                            </div>
+                        </Carousel>
+                    </div>
+                    <div className="Course-Carousel" style={{visibility: loading ? 'hidden' : 'visible'}}>
+                        <Carousel responsive={courseCloud} className='CourseCardListerBody' style={{display: loading ? 'none' : 'block'}}>
+                            {activeCourseData.map((course, index) => (
+                                <CourseCard
+                                    key={index}
+                                    Course_Name={course.Course_Name}
+                                    Course_Author={course.Course_Author}
+                                    Ratings={course.Ratings}
+                                    Price={course.Price}
+                                    NoOfCustomers={course.NoOfCustomers}
+                                    Image={course.Image}
+                                    open={open && currentCard === index}
+                                    anchorEl={anchorEl}
+                                    handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
+                                    handlePopoverClose={handlePopoverClose}
+                                    loading={loading}
+                                />
+                            ))}
+                        </Carousel>
+                    </div>
+                </div>
+            
         </div>
     )
 }

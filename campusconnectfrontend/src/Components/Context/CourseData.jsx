@@ -16,7 +16,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.7",
                 Price: "199",
                 NoOfCustomers: "12345",
-                Image: "https://img-c.udemycdn.com/course/240x135/123456_7890.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/6092325_fa47.jpg",
             },
             {
                 Course_Name: "Mastering Meditation",
@@ -24,7 +24,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.8",
                 Price: "249",
                 NoOfCustomers: "67890",
-                Image: "https://img-c.udemycdn.com/course/240x135/234567_8901.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/6069595_4a43_3.jpg",
             },
             {
                 Course_Name: "Healthy Eating and Nutrition",
@@ -32,7 +32,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.6",
                 Price: "299",
                 NoOfCustomers: "34567",
-                Image: "https://img-c.udemycdn.com/course/240x135/345678_9012.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/6080583_b851.jpg",
             },
             {
                 Course_Name: "Advanced Pilates Techniques",
@@ -40,7 +40,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.5",
                 Price: "349",
                 NoOfCustomers: "45678",
-                Image: "https://img-c.udemycdn.com/course/240x135/456789_0123.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/6063915_6d03.jpg",
             },
             {
                 Course_Name: "High-Intensity Interval Training (HIIT)",
@@ -48,7 +48,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.7",
                 Price: "199",
                 NoOfCustomers: "56789",
-                Image: "https://img-c.udemycdn.com/course/240x135/567890_1234.jpg",
+                Image: "https://img-c.udemycdn.com/course/480x270/6022066_f124_5.jpg",
             },
             {
                 Course_Name: "Mental Wellness and Stress Management",
@@ -56,7 +56,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.8",
                 Price: "249",
                 NoOfCustomers: "67890",
-                Image: "https://img-c.udemycdn.com/course/240x135/678901_2345.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/5988984_53f2.jpg",
             },
             {
                 Course_Name: "Functional Training for Better Health",
@@ -64,7 +64,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.6",
                 Price: "299",
                 NoOfCustomers: "78901",
-                Image: "https://img-c.udemycdn.com/course/240x135/789012_3456.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/230066_632a_6.jpg",
             },
             {
                 Course_Name: "Nutrition for Weight Loss",
@@ -72,7 +72,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.7",
                 Price: "199",
                 NoOfCustomers: "89012",
-                Image: "https://img-c.udemycdn.com/course/240x135/890123_4567.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/239640_fb72_2.jpg",
             },
             {
                 Course_Name: "Introduction to Ayurveda",
@@ -80,7 +80,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.5",
                 Price: "349",
                 NoOfCustomers: "90123",
-                Image: "https://img-c.udemycdn.com/course/240x135/901234_5678.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/281000_579e_2.jpg",
             },
             {
                 Course_Name: "Cardio Workouts for All Levels",
@@ -88,7 +88,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.6",
                 Price: "299",
                 NoOfCustomers: "12345",
-                Image: "https://img-c.udemycdn.com/course/240x135/012345_6789.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/629672_a888_2.jpg",
             },
             {
                 Course_Name: "Mindful Eating Practices",
@@ -96,7 +96,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.7",
                 Price: "249",
                 NoOfCustomers: "23456",
-                Image: "https://img-c.udemycdn.com/course/240x135/123456_7890.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/652906_e634.jpg",
             },
             {
                 Course_Name: "Core Strength and Flexibility",
@@ -104,7 +104,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.8",
                 Price: "349",
                 NoOfCustomers: "34567",
-                Image: "https://img-c.udemycdn.com/course/240x135/234567_8901.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/756494_408d.jpg",
             },
             {
                 Course_Name: "Healing Herbs and Supplements",
@@ -112,7 +112,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.5",
                 Price: "299",
                 NoOfCustomers: "45678",
-                Image: "https://img-c.udemycdn.com/course/240x135/345678_9012.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/874762_4686_13.jpg",
             },
             {
                 Course_Name: "Guided Breathing Techniques",
@@ -120,7 +120,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.6",
                 Price: "199",
                 NoOfCustomers: "56789",
-                Image: "https://img-c.udemycdn.com/course/240x135/456789_0123.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/998560_969a.jpg",
             },
             {
                 Course_Name: "Strength Training Basics",
@@ -128,7 +128,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.8",
                 Price: "249",
                 NoOfCustomers: "67890",
-                Image: "https://img-c.udemycdn.com/course/240x135/567890_1234.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/1065420_3039_2.jpg",
             },
         ],
         Computer: [
@@ -226,7 +226,7 @@ export const CourseDataProvider = ({ children }) => {
                 Ratings: "4.8",
                 Price: "899",
                 NoOfCustomers: "15678",
-                Image: "https://img-c.udemycdn.com/course/240x135/1793824_7999_2.jpg",
+                Image: "https://img-c.udemycdn.com/course/240x135/15305_0987_6.jpg",
             },
             {
                 Course_Name: "Angular - The Complete Guide",
