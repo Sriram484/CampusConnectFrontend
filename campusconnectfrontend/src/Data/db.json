@@ -1,0 +1,139 @@
+{
+  "users": [
+    {
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "password": "Alice123!",
+      "mobileNumber": "1234567890",
+      "courseId": [
+        "course1",
+        "course2"
+      ],
+      "enquiryId": [
+        "enquiry1"
+      ],
+      "type": "student",
+      "id": "3f78"
+    },
+    {
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "password": "Bob123!",
+      "mobileNumber": "9876543210",
+      "courseId": [
+        "course3"
+      ],
+      "enquiryId": [
+        "enquiry2",
+        "enquiry3"
+      ],
+      "type": "student",
+      "id": "bd2a"
+    },
+    {
+      "name": "Charlie Brown",
+      "email": "charlie@example.com",
+      "password": "Charlie123!",
+      "mobileNumber": "5555555555",
+      "courseId": [
+        "course4",
+        "course5"
+      ],
+      "enquiryId": [
+        "enquiry4"
+      ],
+      "type": "student",
+      "id": "7f74"
+    },
+    {
+      "name": "David Williams",
+      "email": "david@example.com",
+      "password": "David123!",
+      "mobileNumber": "1112223333",
+      "courseId": [
+        "course6"
+      ],
+      "enquiryId": [
+        "enquiry5",
+        "enquiry6"
+      ],
+      "type": "student",
+      "id": "0fc3"
+    },
+    {
+      "name": "Eva Davis",
+      "email": "eva@example.com",
+      "password": "Eva123!",
+      "mobileNumber": "4444444444",
+      "courseId": [
+        "course7",
+        "course8"
+      ],
+      "enquiryId": [
+        "enquiry7"
+      ],
+      "type": "student",
+      "id": "045d"
+    },
+    {
+      "id": "b6df",
+      "name": "Sriram",
+      "email": "sriram.rajkumart@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "9500866654",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student"
+    },
+    {
+      "id": "b9df",
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "9500866654",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "admin"
+    },
+    {
+      "id": "c9c8",
+      "name": "Rokhithran",
+      "email": "rok@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "8456321789",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student"
+    },
+    {
+      "id": "2e0b",
+      "name": "Rokhithran",
+      "email": "sriram.rajkumart@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "1234567895",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student"
+    },
+    {
+      "id": "21d0",
+      "name": "Rokhithran",
+      "email": "sriram.rajkumart@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "9842206654",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student"
+    },
+    {
+      "id": "8fab",
+      "name": "Rokhithrannnnnn",
+      "email": "sriram.rajkumart@gmail.com",
+      "password": "Sriramraj@484",
+      "mobileNumber": "9874563211",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student"
+    }
+  ]
+}
