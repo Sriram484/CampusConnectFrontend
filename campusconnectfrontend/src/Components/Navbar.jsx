@@ -18,11 +18,12 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import "../Assets/CSS/Nav.css"
-import { createTheme } from '@mui/material';
+import { Badge, createTheme } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { useLocation } from 'react-router';
 import { useFormData } from './Context/UserData';
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 const drawerWidth = 240;
 
 const theme = createTheme({
@@ -47,23 +48,36 @@ function NavBar() {
   const location = useLocation();
 
   const { formData,setFormData } = useFormData() || { formData: {} };
-  console.log(formData);
+  // console.log(formData);
+  
+ 
 
   // Determine which item to show in the navigation
-  const userNavItem = formData.name === ''
+  const userNavItem = formData.userFirstName === ''
     ? { name: 'Login/Register', path: '/login' }
     : { name: 'Profile', path: '/profile' };
+
+    // Additional items for logged-in users
+const loggedInItems = formData.userFirstName !== ''
+? [
+    { name: 'Add to Cart', path: '/addToCart' },
+    { name: 'Add to WishList', path: '/addToWishList' },
+  ]
+: [];
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Course', path: '/course' },
     { name: 'Contact Us', path: '/contact' },
+    ...loggedInItems,
     userNavItem,
-    ...(formData.type === 'admin' ? [{ name: 'Dashboard', path: '/dashboard' }] : [])
+    ...(formData.role === 'ADMIN' ? [{ name: 'Dashboard', path: '/dashboard' }] : [])
   ];
 
   React.useEffect(() => {
-    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' || location.pathname === '/dashboard') {
+    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' 
+      || location.pathname === '/dashboard' || location.pathname === '/addToCart' || location.pathname === '/addToWishList' 
+      || location.pathname === '/courseMainBody') {
       setAppBarBg('black')
     }
     else {
@@ -80,7 +94,9 @@ function NavBar() {
   };
 
   const handleScroll = () => {
-    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' || location.pathname === '/dashboard') {
+    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' 
+      || location.pathname === '/dashboard' || location.pathname === '/addToCart' || location.pathname === '/addToWishList'
+      || location.pathname === '/courseMainBody') {
       setAppBarBg('black')
     }
     else {
@@ -102,6 +118,24 @@ function NavBar() {
   };
 
 
+  const renderNavItemContent = (name) => {
+    if (name === "Add to Cart") {
+      return (
+        <Badge badgeContent={3} color="secondary">
+          <ShoppingCartIcon />
+        </Badge>
+      );
+    } else if (name === "Add to WishList") {
+      return (
+        <Badge badgeContent={3} color="secondary">
+          <FavoriteIcon />
+        </Badge>
+      );
+    } else {
+      return name;
+    }
+  };
+
 
   const drawer = (
     <ThemeProvider theme={theme}>
@@ -119,13 +153,13 @@ function NavBar() {
                 // onClick={() => handleNavigation(path)}
                 >
                   <Link smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
-                    {name}
+                  {renderNavItemContent(name)}
                   </Link>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
           ))}
-          {formData.name && (
+          {formData.userFirstName && (
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLogout}>
                 <ListItemText>
@@ -180,12 +214,13 @@ function NavBar() {
 
                 >
                   <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
-                    {name}
+
+                  {renderNavItemContent(name)}
                   </div>
                 </Button>
               ))}
-              {formData.name && (
-                <Button key={formData.name}
+              {formData.userFirstName && (
+                <Button key={formData.userFirstName}
                   sx={{
                     color: 'rgba(248, 248, 248, 1)',
                     '&:hover': {

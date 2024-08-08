@@ -5,6 +5,8 @@ import "../Assets/CSS/CourseCard.css"
 import demo from "../Assets/Image/AWS1.jpg"
 import { Rate } from "antd";
 import { Box, Button, colors, Popover, Typography } from '@mui/material';
+import { useNavigate } from 'react-router';
+
 
 
 
@@ -41,13 +43,11 @@ const CourseCard = ({
       return 'Unknown';
     }
   };
-
-
-
-
+  const navigate = useNavigate();
   return (
+    
     <>
-      <div className="Course-Card-Body" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} >
+      <div className="Course-Card-Body" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} onClick={()=>{navigate("/courseMainBody")}} >
         <div className='Course-Card-Container'>
           <img className="Course-Card-Product-Image" src={Image} alt="product image" />
         </div>

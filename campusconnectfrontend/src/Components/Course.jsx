@@ -5,24 +5,22 @@ import "../Assets/CSS/Course.css"
 import CourseCard from './CourseCard';
 import NavBar from './Navbar';
 import { useCourseData } from './Context/CourseData';
-// import { useNavigate } from 'react-router';
 import "react-multi-carousel/lib/styles.css"
 import HashLoader from "react-spinners/HashLoader";
 
 const Course = () => {
 
     const [activeCategory, setActiveCategory] = useState("19");
-    // const navigate = useNavigate();
     const { CourseDatabase, courseCategories } = useCourseData()
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [hiddenElements, setHiddenElements] = useState([]);
 
     const [activeNavCourse, setActiveNavCourse] = useState("Computer");
-    console.log(activeNavCourse);
-    console.log(CourseDatabase);
+    // console.log(activeNavCourse);
+    // console.log(CourseDatabase);
     const [activeCourseData, setActiveCourseData] = useState(CourseDatabase[activeNavCourse]);
-    console.log(activeCourseData);
+    // console.log(activeCourseData);
 
     // Function to handle clicking on a category
     const handleCategoryClick = (category) => {
@@ -261,6 +259,7 @@ const Course = () => {
                                     handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
                                     handlePopoverClose={handlePopoverClose}
                                     loading={loading}
+                               
                                 />
                             ))}
                         </Carousel>

@@ -1,4 +1,4 @@
-import { Box, Fab, IconButton, Input, InputAdornment, Typography, useTheme, Grid } from "@mui/material";
+import { Box, Fab, IconButton, Input, InputAdornment, Typography, useTheme, Grid, TextField } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
 import { useEffect, useReducer, useRef, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
@@ -53,8 +53,8 @@ const RenderResponse = ({ message }) => {
             bottom: "-8px",
             color: "#fff",
             background: "#000",
-            height: "24px",
-            width: "24px",
+            height: "28px",
+            width: "28px",
             padding: "4px",
             borderRadius: "50%",
             textAlign: "center",
@@ -181,7 +181,7 @@ export default function AiChat() {
               justifyContent: "space-between",
             }}
           >
-            <Typography color={"#fff"} sx={{padding:"50px"}}>AI Assistant</Typography>
+            <Typography color={"#fff"} sx={{ padding: "50px" }}>AI Assistant</Typography>
             <Box>
 
               <IconButton
@@ -215,7 +215,7 @@ export default function AiChat() {
               }}
             >
               <Typography sx={{
-              }} color={"#fff"}  className="flex items-center justify-center min-h-10">
+              }} color={"#fff"} className="flex items-center justify-center min-h-10">
                 <span className="">AI Assistant</span>
               </Typography>
               <Box>
@@ -236,7 +236,7 @@ export default function AiChat() {
                 height: "90%",
                 width: chatWindowWidth,
                 overflowY: "scroll",
-               
+
               }}
             >
               {
@@ -263,6 +263,18 @@ export default function AiChat() {
                   display={"flex"}
                   alignItems={"flex-end"}
                 >
+                  {/* <TextField
+                    id="outlined-multiline-flexible"
+                    label="Multiline"
+                    multiline
+                    maxRows={4}
+                    onKeyDown={handleKeyDown}
+                    onChange={handleChatMessageChange}
+                    value={state.chatmessage}
+                    fullWidth
+                    sx={{ fontSize: '1.2rem' }}
+                  />
+                    <SendIcon /> */}
                   <Input
                     onKeyDown={handleKeyDown}
                     onChange={handleChatMessageChange}

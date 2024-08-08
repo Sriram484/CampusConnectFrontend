@@ -21,6 +21,14 @@
     display: flex;
     align-items: center;
     margin-left: 40vw;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 700px;
+    margin-bottom: 20px;
+}
+
+.ReportedTable div div table tbody tr td
+{
+    text-align: start; /* Use 'left' as 'start' may not work in all browsers */
+    vertical-align: top; /* Aligns the content to the top vertically */
+    padding: 16px; /* Optional padding for visual appeal */
 }

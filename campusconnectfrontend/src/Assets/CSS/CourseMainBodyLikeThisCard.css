@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.CourseMainBodyLikeThisCard-Container{
+    max-width: 200px;
+    min-width: 200px;
+    width: 200px;
+
+    min-height: 280px;
+    max-height: 280px;
+    height: 280px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.CourseMainBodyLikeThisCard-Header{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.CourseMainBodyLikeThisCard-Author{
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(106, 111, 115);
+}
+
+.CourseMainBodyLikeThisCard-Rating{
+    font-size: 14px;
+}
+.CourseMainBodyLikeThisCard-Time{
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(106, 111, 115);
+}
+
+.CourseMainBodyLikeThisCard-Price{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.CourseCardMainBody-CourseMoreLikeThis{
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.CourseMoreLikeThis-Headers{
+    font-size: 24px;
+    font-weight: 700;
+}
