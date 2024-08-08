@@ -181,3 +181,97 @@
 }
 
 
+
+/* Profile Pic Container */
+
+.Profile-Pic-Preview,.Profile-Pic-ButtonContainer{
+    margin: 20px;
+
+}
+
+.Profile-Pic-Previewer-Body{
+    min-height: 200px;
+    height: 200px;
+    max-height: 200px;
+    border: 1px solid black;
+    margin-top: 5px;
+
+}
+
+.Profile-Pic-Control-Body
+{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.Profile-UploadButton{
+    border: 1px solid black;
+    border-left: 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Account Security */
+
+.Profile-SubHeading{
+    margin: 5px;
+}
+
+.Profile-Email-Division,.Profile-Password-Division,.Profile-Phone-Division{
+    padding: 20px;
+    padding-left: 50px;
+    border-bottom: 1px solid black;
+}
+
+.Profile-Email-Division,.Profile-Password-Division,.Profile-Phone-Division
+{
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Privacy */
+
+.Profile-PrivacyButton-Division{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Close Account */
+
+.Profile-Close-Account-Body{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Profile-Close-Account-Item{
+    margin-top: 20px;
+}
+
+.Profile-Mobile-PromotionsItem{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: flex-start;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.Profile-Mobile-Right-Headers{
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.Profile-Mobile-Right-Para{
+    font-size: 14px;
+    color: grey;
+}

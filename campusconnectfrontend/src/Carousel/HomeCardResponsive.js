@@ -66,3 +66,45 @@ export const responsive = {
       items: 1,
     },
   };
+
+  export const responsiveReview = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 1600 },
+      items: 4,
+      slidesToSlide: 2,
+    },
+    desktop: {
+      breakpoint: { max: 1600, min: 1200 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1200, min: 800 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 800, min: 0 },
+      items: 1,
+    },
+  };
+
+  export const CourseMainBodyLikeThisCardResponsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 1600 },
+      items: 4,
+      slidesToSlide: 2,
+    },
+    desktop: {
+      breakpoint: { max: 1600, min: 1200 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1200, min: 800 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 800, min: 0 },
+      items: 1,
+    },
+  };

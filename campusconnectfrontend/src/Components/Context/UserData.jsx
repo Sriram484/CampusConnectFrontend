@@ -8,14 +8,31 @@ export const useFormData = () => useContext(UserDataContext);
 
 // Provider component
 export const UserDataProvider = ({ children }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    mobileNumber: '',
-    courseId: [],
-    enquiryId: [],
-    type: 'student',
+  const [formData, setFormData] = useState(
+    {
+      userId: null,
+      role: 'USER',
+      userFirstName: '',
+      userLastName: '',
+      userHeadLine: '',
+      userAboutYourself: '',
+      userWebsite: '',
+      userLinkedIn: '',
+      userTwitter: '',
+      userFaceBook: '',
+      userYouTube: '',
+      userProfileImage: '',
+      userEmailId: '',
+      userPassword: '',
+      userMobileNumber: '',
+      blockedUsers:[],
+      reportedUsers:[],
+      // profilePrivacySetting: [], // Initialize as empty array
+      // profileNotificationEmail: [], // Initialize as empty array
+      // enrolledCourseId: [], // Initialize as empty array
+      // reviewId: [], // Initialize as empty array
+      //  madeCourseId: [], // Initialize as empty array
+      //  enquiryId: [], // Initialize as empty array
   });
 
   return (

@@ -7,6 +7,7 @@ import { useFormData } from './Context/UserData';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { HashLoader } from 'react-spinners';
+import { data } from 'jquery';
 
 
 const STATE_MACHINE_NAME = 'Login Machine';
@@ -14,6 +15,7 @@ const LOGIN_PASSWORD = 'teddy';
 const LOGIN_TEXT = 'Login';
 
 const LoginStudent = (riveProps = {}) => {
+
   const { rive: riveInstance, RiveComponent } = useRive({
     src: RivetBear,
     stateMachines: STATE_MACHINE_NAME,
@@ -26,9 +28,9 @@ const LoginStudent = (riveProps = {}) => {
   });
 
 
-  const [passValue, setPassValue] = useState('');
+
   const [inputLookMultiplier, setInputLookMultiplier] = useState(0);
-  const [loginButtonText, setLoginButtonText] = useState(LOGIN_TEXT);
+
   const inputRef = useRef(null);
 
   const navigate = useNavigate();
@@ -74,7 +76,7 @@ const LoginStudent = (riveProps = {}) => {
   // where to look to according to the state machine
   const onSigChange = (e) => {
     const newVal = e.target.value;
-    console.log(e.target.name);
+
     setSigData({
       ...sigData,
       [e.target.name]: newVal,
@@ -89,7 +91,6 @@ const LoginStudent = (riveProps = {}) => {
   // where to look to according to the state machine
   const onRegChange = (e) => {
     const newVal = e.target.value;
-    console.log(e.target.name);
     setFormDataError({
       emptyName: false,
       emptyEmail: false,
@@ -108,7 +109,6 @@ const LoginStudent = (riveProps = {}) => {
         ...formData,
         [e.target.name]: newVal,
       });
-      console.log(formData);
     }
     if (!isCheckingInput.value) {
       isCheckingInput.value = true;
@@ -142,42 +142,96 @@ const LoginStudent = (riveProps = {}) => {
     password: ''
   });
 
-  // When submitting, simulate password validation checking and trigger the appropriate input from the
-  // state machine
+
+
   const handleSigSubmit = async (e) => {
     e.preventDefault();
-    setTimeout(async () => {
-      if (sigData.email !== '' && sigData.password != '') {
-        try {
-          // Fetch user data from the server
-          const response = await fetch('http://localhost:8000/users');
-          const users = await response.json();
 
-          // Check if the email and password match any user
-          const user = users.find(
-            (user) =>
-              user.email === sigData.email && user.password === sigData.password
-          );
-          if (user) {
+    if (sigData.email !== '' && sigData.password !== '') {
+      try {
+        const dataToSend = {
+          email: sigData.email,
+          password: sigData.password,
+        }
+
+        const response = await axios.post('http://localhost:1010/auth/login', dataToSend, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+
+        // Check if the response is OK (status 200)
+        if (response.status === 200) {
+
+
+          if (response.data.statusCode === 200) {
+            // Successful login
             trigSuccessInput.fire();
-            setFormData(user)
-            navigate("/")
 
+
+            if (response.data.token) {
+              localStorage.setItem('token', response.data.token)
+              localStorage.setItem('role', response.data.role)
+              const token = localStorage.getItem("token");
+              try {
+                const profileResponse = await axios.get(`http://localhost:1010/adminuser/get-profile`,
+                  {
+                    headers: { Authorization: `Bearer ${token}` }
+                  })
+                // Update the formData state with the profile data
+                const userData = profileResponse.data.ourUsers;
+                setFormData({
+                  userId: userData.id,
+                  role: userData.role,
+                  userFirstName: userData.name, // Assuming name is the first name
+                  userLastName: '', // No last name provided
+                  userHeadLine: '', // Initialize as empty string
+                  userAboutYourself: '', // Initialize as empty string
+                  userWebsite: '', // Initialize as empty string
+                  userLinkedIn: '', // Initialize as empty string
+                  userTwitter: '', // Initialize as empty string
+                  userFaceBook: '', // Initialize as empty string
+                  userYouTube: '', // Initialize as empty string
+                  userProfileImage: '', // Initialize as empty string
+                  userEmailId: userData.email,
+                  userPassword: userData.password, 
+                  userMobileNumber: userData.mobileNumber,
+                  blockedUsers: userData.blockedUsers,
+                  reportedUsers: userData.reportedUsers,
+                });
+              } catch (err) {
+                throw err;
+              }
+
+
+              // navigate('/profile')
+            } else {
+              console.error(response.data.message)
+            }
+
+
+            navigate("/"); // Redirect to home or dashboard
           } else {
+            // Login failed
             trigFailInput.fire();
           }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-          alert('Error connecting to the server.');
+        } else {
+          // Handle error responses (status not 200)
+          const errorData = await response.json();
+          console.error('Login failed:', errorData.message);
+          alert('Login failed: ' + errorData.message);
         }
+      } catch (error) {
+        console.error('Error connecting to the server:', error);
+        alert('Error connecting to the server.');
       }
-      else {
-        trigFailInput.fire();
-      }
-    }, 1500);
-
-
+    } else {
+      // Fields are empty
+      trigFailInput.fire();
+    }
   };
+
 
   //Register Data
   const { formData, setFormData } = useFormData();
@@ -201,7 +255,8 @@ const LoginStudent = (riveProps = {}) => {
     e.preventDefault();
 
 
-    if (formData.name === '') {
+
+    if (formData.userFirstName === '') {
       setFormDataError((prev) => ({ ...prev, emptyName: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -210,7 +265,7 @@ const LoginStudent = (riveProps = {}) => {
       return;
 
     }
-    else if (formData.email === '') {
+    else if (formData.userEmailId === '') {
       setFormDataError((prev) => ({ ...prev, emptyEmail: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -219,7 +274,7 @@ const LoginStudent = (riveProps = {}) => {
       return;
 
     }
-    else if (formData.password === '') {
+    else if (formData.userPassword === '') {
       setFormDataError((prev) => ({ ...prev, emptyPassword: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -228,7 +283,7 @@ const LoginStudent = (riveProps = {}) => {
       return;
 
     }
-    else if (formData.password !== regConfirmPassword) {
+    else if (formData.userPassword !== regConfirmPassword) {
       setFormDataError((prev) => ({ ...prev, wrongConfirmPassword: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -236,7 +291,7 @@ const LoginStudent = (riveProps = {}) => {
       }, 500);
       return;
     }
-    else if (formData.mobileNumber === '') {
+    else if (formData.userMobileNumber === '') {
       setFormDataError((prev) => ({ ...prev, emptyMobileNumber: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -249,9 +304,7 @@ const LoginStudent = (riveProps = {}) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const mobileRegex = /^\d{10}$/;
-
-    console.log(mobileRegex.test(formData.mobileNumber));
-    if (!emailRegex.test(formData.email)) {
+    if (!emailRegex.test(formData.userEmailId)) {
       setFormDataError((prev) => ({ ...prev, wrongEmail: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -259,7 +312,7 @@ const LoginStudent = (riveProps = {}) => {
       }, 500);
       return;
     }
-    else if (!passwordRegex.test(formData.password)) {
+    else if (!passwordRegex.test(formData.userPassword)) {
       setFormDataError((prev) => ({ ...prev, wrongPassword: true }));
       setTimeout(() => {
         trigFailInput.fire();
@@ -267,7 +320,7 @@ const LoginStudent = (riveProps = {}) => {
       }, 500);
       return;
     }
-    else if (!mobileRegex.test(formData.mobileNumber)) {
+    else if (!mobileRegex.test(formData.userMobileNumber)) {
       setFormDataError((prev) => ({ ...prev, wrongMobile: true }))
       setTimeout(() => {
         trigFailInput.fire();
@@ -276,52 +329,41 @@ const LoginStudent = (riveProps = {}) => {
       return;
     }
     else {
-      // All validations passed
-
-      // Prepare the data to be sent
       const dataToSend = {
-        name: formData.name,
-        email: formData.email,
-        lastname:"",
-        password: formData.password,
-        mobileNumber: formData.mobileNumber,
-        courseId: formData.courseId,
-        enquiryId: formData.enquiryId,
-        type: formData.type,
-        headline: "",
-        about: "",
-        website: "",
-        linkedIn: "",
-        twitter: "",
-        faceBook: "",
-        youTube: "",
+        name: formData.userFirstName,
+        email: formData.userEmailId,
+        password: formData.userPassword,
+        mobileNumber: formData.userMobileNumber,
+        role: "USER",
       };
 
       setFormData({
-        name: "",
-        lastname: "",
-        email: "",
-        headline: "",
-        about: "",
-        website: "",
-        linkedIn: "",
-        twitter: "",
-        faceBook: "",
-        youTube: "",
-        password: "",
-        mobileNumber: "",
-        type: "",
+        userFirstName: "",
+        userLastName: "",
+        userEmailId: "",
+        userHeadLine: "",
+        userAboutYourself: "",
+        userWebsite: "",
+        userLinkedIn: "",
+        userTwitter: "",
+        userFaceBook: "",
+        userYouTube: "",
+        userEmailId: "",
+        userMobileNumber: "",
+        role: "",
       })
 
 
       // Send data to the server
 
       try {
-        const response = await axios.post('http://localhost:8000/users', dataToSend, {
+        const response = await axios.post('http://localhost:1010/auth/register', dataToSend, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
+        console.log(response);
+
 
         setTimeout(() => {
           trigSuccessInput.fire();
@@ -360,33 +402,33 @@ const LoginStudent = (riveProps = {}) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-      setLoading(true);
+    setLoading(true);
 
-      setTimeout(() => {
-          setLoading(false);
-      }, 3000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
 
   }, [])
 
   return (
     <>
-         <div  style={{
-                    visibility: loading ? 'visible' : 'hidden',
-                    display: loading ? 'flex' : 'none',
-                    justifyContent: "center",
-                    alignItems: "center",
-                    position: 'fixed', // Fix the position of the loader
-                    top: 0, 
-                    left: 0, 
-                    right: 0, 
-                    bottom: 0, 
-                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
-                    zIndex: 9999, // Ensure it appears above other content
-                }}>
-                    <HashLoader
+      <div style={{
+        visibility: loading ? 'visible' : 'hidden',
+        display: loading ? 'flex' : 'none',
+        justifyContent: "center",
+        alignItems: "center",
+        position: 'fixed', // Fix the position of the loader
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+        zIndex: 9999, // Ensure it appears above other content
+      }}>
+        <HashLoader
 
-                    />
-          </div>
+        />
+      </div>
       {authMode ? (
         <div
           className="Auth-form-container"
@@ -474,7 +516,7 @@ const LoginStudent = (riveProps = {}) => {
                 <label>User Name</label>
                 <input
                   type="text"
-                  name="name"
+                  name="userFirstName"
                   className="form-control mt-1"
                   placeholder="Enter Your Name"
                   value={formData.name}
@@ -492,8 +534,8 @@ const LoginStudent = (riveProps = {}) => {
                 <label>Email address</label>
                 <input
                   type="text"
-                  name="email"
-                  id="email"
+                  name="userEmailId"
+                  id="userEmailId"
                   className="form-control mt-1"
                   placeholder="Email Address"
                   value={formData.email}
@@ -513,7 +555,7 @@ const LoginStudent = (riveProps = {}) => {
                 <label>Password</label>
                 <input
                   type="password"
-                  name="password"
+                  name="userPassword"
                   className="form-control mt-1"
                   placeholder="Password"
                   value={formData.password}
@@ -551,7 +593,7 @@ const LoginStudent = (riveProps = {}) => {
                 <label>Mobile Number</label>
                 <input
                   type="text"
-                  name="mobileNumber"
+                  name="userMobileNumber"
                   id="mobile-number"
                   className="form-control mt-1"
                   placeholder="Mobile Number"

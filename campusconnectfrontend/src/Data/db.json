@@ -121,6 +121,42 @@
       "twitter": "",
       "faceBook": "",
       "youTube": ""
+    },
+    {
+      "id": "9c33",
+      "name": "Sriram",
+      "email": "727722eucs179@skcet.ac.in",
+      "lastname": "",
+      "password": "Sriramraj@484",
+      "mobileNumber": "7894561235",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student",
+      "headline": "",
+      "about": "",
+      "website": "",
+      "linkedIn": "",
+      "twitter": "",
+      "faceBook": "",
+      "youTube": ""
+    },
+    {
+      "id": "e190",
+      "name": "Sam",
+      "email": "sam@gmail.com",
+      "lastname": "",
+      "password": "Sriramraj@484",
+      "mobileNumber": "7894561235",
+      "courseId": [],
+      "enquiryId": [],
+      "type": "student",
+      "headline": "",
+      "about": "",
+      "website": "",
+      "linkedIn": "",
+      "twitter": "",
+      "faceBook": "",
+      "youTube": ""
     }
   ]
 }
