@@ -1,6 +1,7 @@
 import { Rate } from 'antd'
 import React from 'react'
 import "../Assets/CSS/CourseMainBodyLikeThisCard.css"
+import deo from  "../Assets/Image/AWS1.jpg"
 
 const CourseMainBodyLikeThisCard = ({
     Image,
@@ -15,7 +16,7 @@ const CourseMainBodyLikeThisCard = ({
         <div className='CourseMainBodyLikeThisCard-Container'>
 
             <div className='CourseMainBodyLikeThisCard-Img'>
-                <img src={`${Image}`} alt="" />
+                <img src={`${deo}`} alt="" style={{minHeight:"135px",maxHeight:"135px",minWidth:"240px",maxWidth:"240px"}}/>
             </div>
             <div className='CourseMainBodyLikeThisCard-Header'>
                 {Course_Name.length > 30 ? `${Course_Name.slice(0, 30)}...` : Course_Name}

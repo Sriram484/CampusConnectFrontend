@@ -104,7 +104,7 @@
   font-weight: 700;
 }
 .Course-List .react-multi-carousel-list {
-
+  min-width: 90vw;
 }
 
 .activeNavCourse{
@@ -114,8 +114,12 @@
   text-underline-offset: 6px; /* Space between text and underline */
 }
 
+.Course-List .react-multi-carousel-list .react-multi-carousel-track{
+  min-width: 90vw;
+}
+
 .Course-List .react-multi-carousel-list .react-multi-carousel-track .react-multi-carousel-item{
-  max-width: fit-content;
+  min-width: max-content;
 }
 
 @media (max-width: 650px) {
@@ -139,4 +143,10 @@
     font-size: 18px;
   }
 
+}
+
+
+.Course-Carousel .CourseCardListerBody {
+  min-width: 90vw;
+  margin-left: 50px;
 }

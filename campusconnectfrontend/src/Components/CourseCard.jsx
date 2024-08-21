@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 
 
 
-const CourseCard = ({ 
+const CourseCard = ({
   Course_Name,
   Course_Author,
   Ratings,
@@ -22,7 +22,8 @@ const CourseCard = ({
   handlePopoverOpen,
   handlePopoverClose,
   loading,
- }) => {
+  courseObject,
+}) => {
 
   const ratingValue = isNaN(Ratings) ? 0 : parseFloat(Ratings);
   const formattedNumber = Number(NoOfCustomers).toLocaleString();
@@ -45,19 +46,31 @@ const CourseCard = ({
   };
   const navigate = useNavigate();
   return (
-    
+
     <>
-      <div className="Course-Card-Body" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} onClick={()=>{navigate("/courseMainBody")}} >
+      <div
+        className="Course-Card-Body"
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+        onClick={() => {
+          navigate("/courseMainBody", { state: { courseObject } });
+        }}
+      >
         <div className='Course-Card-Container'>
           <img className="Course-Card-Product-Image" src={Image} alt="product image" />
         </div>
         <div className='Course-Card-Product-Body'>
           <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Name'>{Course_Name}</div>
-          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Author'>{Course_Author} </div>
-          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Rating'><span style={{ marginRight: "10px",display:loading ? 'none' : 'block' }}>{ratingValue}</span><Rate allowHalf value={ratingValue} disabled /><span style={{ marginLeft: "10px" }}>({formattedNumber})</span></div>
+          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Author'>{Course_Author}</div>
+          <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Rating'>
+            <span style={{ marginRight: "10px", display: loading ? 'none' : 'block' }}>{ratingValue}</span>
+            <Rate allowHalf value={ratingValue} disabled />
+            <span style={{ marginLeft: "10px" }}>({formattedNumber})</span>
+          </div>
           <div style={{ wordWrap: "break-word" }} className='Course-Card-Elements Course-Card-Price'>₹{Price}</div>
         </div>
       </div>
+
       <Popover
         id="mouse-over-popover"
         sx={{

@@ -1,20 +1,133 @@
 import React, { useEffect, useRef, useState } from "react";
 import ProfilePic from "../Assets/Image/courseBg.jpg";
-import { Button, Checkbox, FormControlLabel, InputAdornment, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
-import { MuiFileInput } from 'mui-file-input'
+import { Alert, Box, Button, Checkbox, FormControlLabel, Input, InputAdornment, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
+
 import "../Assets/CSS/Profile.css"
 import { useFormData } from "./Context/UserData";
 import { HashLoader } from "react-spinners";
 import Avatar from '@mui/material/Avatar';
 import axios from "axios";
-import CryptoJS from 'crypto-js';
+import ImageVideoPlaceholder from "../Assets/Image/ImageVideoPlaceholder.jpg";
 
 const Profile = () => {
+    //  Account
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const [alert, setAlert] = useState({ message: '', severity: 'success' });
+
+    const handleSavePassword = async () => {
+
+        if (currentPassword !== confirmNewPassword) {
+            setAlert({ message: 'New passwords do not match!', severity: 'error' });
+            setConfirmNewPassword("");
+            setNewPassword("");
+            setCurrentPassword("")
+            return;
+        }
+        console.log("%");
+
+        try {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem('token');
+            console.log(token);
+
+
+            // Make the API request using axios
+            const response = await axios.post('http://localhost:1010/adminuser/reset-password', {
+                email: formData.userEmailId,       // Include the email in the request body
+                currentPassword,   // Include the current password
+                newPassword        // Include the new password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Include the token in the Authorization header
+                },
+            });
+
+
+
+            // Handle the response
+            if (response.status === 200) {
+                setAlert({ message: 'Password successfully updated!', severity: 'success' });
+                setConfirmNewPassword("");
+                setNewPassword("");
+                setCurrentPassword("")
+            } else {
+                setAlert({ message: response.data.message || 'Failed to update password.', severity: 'error' });
+                setConfirmNewPassword("");
+                setNewPassword("");
+                setCurrentPassword("")
+            }
+        } catch (error) {
+            console.log(error);
+            setAlert({ message: 'An error occurred while updating the password.', severity: 'error' });
+        }
+    };
+    useEffect(() => {
+        console.log(currentPassword);
+
+    }, [currentPassword])
+
+    // Clear alert after 5 seconds
+    useEffect(() => {
+        if (alert.message) {
+            const timer = setTimeout(() => setAlert({ message: '', severity: 'success' }), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [alert.message]);
 
     const { formData, setFormData } = useFormData();
 
     const [loading, setLoading] = useState(false);
     const [currentProf, setCurrentProf] = useState("Profile");
+
+    const fetchData = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(
+                `http://localhost:1010/adminuser/get-profile`,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+
+            const userData = response.data.ourUsers;
+
+            // Mapping the API response to formData structure
+            const updatedFormData = {
+                userId: userData.id,
+                role: userData.role,
+                userFirstName: userData.name,
+                userLastName: userData.lastname,
+                userHeadLine: userData.headline,
+                userAboutYourself: userData.about,
+                userWebsite: userData.website,
+                userLinkedIn: userData.linkedIn,
+                userTwitter: userData.twitter,
+                userFaceBook: userData.faceBook,
+                userYouTube: userData.youTube,
+                userProfileImage: userData.userProfileImage, // Get profile image from API
+                userEmailId: userData.email,
+                userPassword: userData.password,
+                userMobileNumber: userData.mobileNumber,
+                blockedUsers: userData.blockedUsers,
+                reportedUsers: userData.reportedUsers,
+                isProfilePublic: userData.isProfilePublic
+            };
+            // Setting the updated formData
+            setFormData(updatedFormData);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    useEffect(() => {
+
+        fetchData();
+        console.log(formData);
+
+    }, []);
+
 
     useEffect(() => {
         setLoading(true);
@@ -39,19 +152,30 @@ const Profile = () => {
         }
     };
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(formData.userProfileImage);
 
     // Handle file input change event
-    const handleFileChange = (event) => {
-        const file = event.target.files[0]; // Get the first selected file
+    const handleFileChange = (event, fieldName) => {
+        const file = event.target.files[0];
         if (file) {
-            setSelectedFile(file); // Store the selected file in state
-            console.log('Selected file:', file);
+            const reader = new FileReader();
 
-            // Example: Prepare to upload the file
-            // uploadFile(file);
+            reader.onloadend = () => {
+                const base64String = reader.result;
+                setFormData(prevState => ({
+                    ...prevState,
+                    [fieldName]: base64String // Store Base64 string for preview
+                }));
+                setSelectedFile(base64String);
+            };
+
+            reader.readAsDataURL(file); // This will trigger the onloadend event
+
+
+
         }
     };
+
 
 
     const handleBasicInputChange = (event) => {
@@ -64,31 +188,54 @@ const Profile = () => {
     };
 
     const handleSave = async () => {
-        console.log("$$$$$");
+        console.log(formData);
         const token = localStorage.getItem('token');
-        try {
-            console.log(token);
-            const demo = {
-                userEmailId: "admin@gmail.com",
-                userPassword: "Sriramraj@484",
-                userAboutYourself: "avdbkeulibqktei qefbyifew@gmai.com",
-                userHeadLine:"avdbkeulibqktei qefbyifew@gmai.com",
-                userFaceBook:"yuionm"
+        console.log(token);
 
-            }
-            const response = await axios.put(`http://localhost:1010/common/update/${formData.userId}`, demo,
+        const dataToSend = {
+            id: formData.userId,
+            email: formData.userEmailId,
+            name: formData.userFirstName,
+            password: formData.userPassword,
+            mobileNumber: formData.userMobileNumber,
+            role: formData.role,
+            lastname: formData.userLastName,
+            headline: formData.userHeadLine,
+            about: formData.userAboutYourself,
+            website: formData.userWebsite,
+            linkedIn: formData.userLinkedIn,
+            twitter: formData.userTwitter,
+            faceBook: formData.userFaceBook,
+            youTube: formData.userYouTube,
+            blockedUsers: formData.blockedUsers,
+            reportedUsers: formData.reportedUsers,
+            userProfileImage: formData.userProfileImage,
+            isProfilePublic: formData.isProfilePublic
+        };
+
+        console.log(dataToSend);
+        console.log(formData.userProfileImage);
+
+
+        try {
+            const response = await axios.put(
+                ` http://localhost:1010/adminuser/update/${formData.userId}`,
+                dataToSend,
                 {
                     headers: { Authorization: `Bearer ${token}` }
-                })
-            console.log(response);
-
-            return response.data;
+                }
+            );
+            console.log(response.data);
         } catch (err) {
-            console.error(err)
-
-            throw err;
+            console.error(err);
         }
+
+
     }
+
+    // Check if profile image is available
+    const hasProfileImage = formData.userProfileImage && formData.userProfileImage.trim() !== "";
+
 
     return (
         <>
@@ -114,9 +261,24 @@ const Profile = () => {
                     <div className="Profile-Left">
                         <div className="Profile-PicContainer">
                             {/* <img src={ProfilePic} className="Profile-Pic-Container-Images" />*/}
-                            <Avatar sx={{ backgroundColor: "black", height: "120px", width: "120px" }} aria-label="avatar">
-                                <span style={{ fontSize: "32px" }}>{formData.userFirstName.charAt(0)}</span>
+                            <Avatar
+                                sx={{
+                                    backgroundColor: hasProfileImage ? "transparent" : "black", // Only apply black background if no image
+                                    height: "120px",
+                                    width: "120px",
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                }}
+                                src={hasProfileImage ? formData.userProfileImage : null}
+                                aria-label="avatar"
+                            >
+                                {!hasProfileImage && (
+                                    <span style={{ fontSize: "32px", color: "white" }}>
+                                        {formData.userFirstName.charAt(0)}
+                                    </span>
+                                )}
                             </Avatar>
+
                             <div className="ProfileName">{formData.userFirstName}</div>
                         </div>
                         <div className="Profile-Options">
@@ -135,16 +297,7 @@ const Profile = () => {
                                 , backgroundColor: currentProf === "Account" ? "#6a6f73" : "white",
                                 color: currentProf === "Account" ? "#fff" : "black",
                             }}>Account Security</div>
-                            {/* <div onClick={()=>{setCurrentProf("Subscriptions")}}style={{
-                                cursor:"pointer"
-                                ,backgroundColor: currentProf === "Subscriptions" ? "#6a6f73" : "white",
-                                color: currentProf === "Subscriptions" ? "#fff" : "black",
-                            }}>Subscriptions</div> */}
-                            {/* <div onClick={()=>{setCurrentProf("Payment")}}style={{
-                                cursor:"pointer"
-                                ,backgroundColor: currentProf === "Payment" ? "#6a6f73" : "white",
-                                color: currentProf === "Payment" ? "#fff" : "black",
-                            }}>Payment methods</div> */}
+
                             <div onClick={() => { setCurrentProf("Privacy") }} style={{
                                 cursor: "pointer"
                                 , backgroundColor: currentProf === "Privacy" ? "#6a6f73" : "white",
@@ -155,11 +308,7 @@ const Profile = () => {
                                 , backgroundColor: currentProf === "Notification" ? "#6a6f73" : "white",
                                 color: currentProf === "Notification" ? "#fff" : "black",
                             }}>Notifications</div>
-                            {/* <div onClick={() => { setCurrentProf("API") }} style={{
-                                cursor:"pointer"
-                                ,backgroundColor: currentProf === "API" ? "#6a6f73" : "white",
-                                color: currentProf === "API" ? "#fff" : "black",
-                            }}>API clients</div> */}
+
                             <div onClick={() => { setCurrentProf("Close") }} style={{
                                 cursor: "pointer"
                                 , backgroundColor: currentProf === "Close" ? "#6a6f73" : "white",
@@ -261,10 +410,19 @@ const Profile = () => {
                                     <div className="Profile-Button">
                                         <Button
                                             onClick={handleSave}
-                                            sx={{ backgroundColor: "#2d2f31", color: "#fff", marginTop: "10px" }}
+                                            sx={{
+                                                backgroundColor: "#2d2f31", // Default background color
+                                                color: "#fff", // Default text color
+                                                marginTop: "10px",
+                                                "&:hover": {
+                                                    backgroundColor: "#2d2f31", // Same as default to prevent change on hover
+                                                    color: "#fff" // Same as default to prevent change on hover
+                                                }
+                                            }}
                                         >
                                             Save
                                         </Button>
+
                                     </div>
                                 </div>
                             </div>
@@ -272,39 +430,72 @@ const Profile = () => {
                         {currentProf === "Pic" &&
                             <div className="Profile-Pic-Container">
                                 <div className="Profile-Headings">
-                                    <div className="Profile-MainHeading">
-                                        Public profile
-                                    </div>
-                                    <div className="Profile-SubHeading">
-                                        Add information about yourself
-                                    </div>
+                                    <div className="Profile-MainHeading">Public profile</div>
+                                    <div className="Profile-SubHeading">Add information about yourself</div>
                                 </div>
                                 <div className="Profile-Pic-Body">
                                     <div className="Profile-Pic-Preview">
-                                        <div className="Profile-Pic-Subheader">
-                                            Image Preview
-                                        </div>
+                                        <div className="Profile-Pic-Subheader">Image Preview</div>
                                         <div className="Profile-Pic-Previewer-Body">
-
+                                            {formData.userProfileImage ? (
+                                                <img
+                                                    src={formData.userProfileImage}
+                                                    alt="Course"
+                                                    style={{ width: '200px', height: 'auto', marginTop: '10px' }}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={ImageVideoPlaceholder}
+                                                    alt="Placeholder"
+                                                    style={{ width: '200px', height: 'auto', marginTop: '10px' }}
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                     <div className="Profile-Pic-ButtonContainer">
-                                        <div className="Profile-Pic-Subheader">
-                                            Add / Change Image
-                                        </div>
+                                        <div className="Profile-Pic-Subheader">Add / Change Image</div>
                                         <div className="Profile-Pic-Control-Body">
-                                            <MuiFileInput onChange={handleFileChange}
-                                                onClick={handleButtonClick} accept="image/jpeg,image/jpg,image/png"
-                                                ref={fileInputRef}
-                                                type="file"
-                                                style={{ minWidth: "78%", width: "78%", maxWidth: "78%", border: "1px solid black" }} />
-                                            <div className="Profile-UploadButton" onClick={handleButtonClick} >Upload Image</div>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: "20%" }}>
+                                                <Input
+                                                    type="file"
+                                                    accept=".jpg,.jpeg,.png"
+                                                    id="course-image-upload"
+                                                    onChange={(e) => handleFileChange(e, 'userProfileImage')}
+                                                    ref={fileInputRef}
+                                                    sx={{ display: 'none' }}
+                                                />
+                                                <Button
+                                                    variant="contained"
+                                                    component="span"
+                                                    sx={{ mb: 1 }}
+                                                    onClick={handleButtonClick}
+                                                >
+                                                    Choose Image
+                                                </Button>
+                                            </Box>
+                                        </div>
+                                        <div className="Profile-Button">
+                                            <Button
+                                                onClick={handleSave}
+                                                sx={{
+                                                    backgroundColor: "#2d2f31", // Default background color
+                                                    color: "#fff", // Default text color
+                                                    marginTop: "10px",
+                                                    "&:hover": {
+                                                        backgroundColor: "#2d2f31", // Same as default to prevent change on hover
+                                                        color: "#fff" // Same as default to prevent change on hover
+                                                    }
+                                                }}
+                                            >
+                                                Save
+                                            </Button>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         }
+
                         {
                             currentProf === "Account" &&
                             <div className="Profile-Account-Container">
@@ -316,18 +507,22 @@ const Profile = () => {
                                         Edit your account settings and change your password here.
                                     </div>
                                 </div>
+                                {alert.message && <Alert severity={alert.severity}>{alert.message}</Alert>}
+
                                 <div className="Profile-Account-Body">
                                     <div className="Profile-Email-Division">
                                         <div className="Profile-Email-Subheader">Email</div>
-                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Enter Your Email" variant="outlined" value={formData.userEmailId || ""} sx={{ marginTop: "20px" }} />
+                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Enter Your Email" variant="outlined" value={formData.userEmailId || ""} sx={{ marginTop: "20px" }}
+                                            onChange={(e) => setFormData({ ...formData, userEmailId: e.target.value })}
+                                        />
                                     </div>
                                     <div className="Profile-Password-Division">
                                         <div className="Profile-Password-Subheader">Password</div>
-                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Enter Your Password" variant="outlined" value={""} sx={{ marginTop: "20px" }} />
-                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Renter Your Password" variant="outlined" value={""} sx={{ marginTop: "20px" }} />
-                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="New Password" variant="outlined" value={""} sx={{ marginTop: "20px" }} />
+                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Enter Your Password" variant="outlined" value={currentPassword} sx={{ marginTop: "20px" }} onChange={(e) => setCurrentPassword(e.target.value)} />
+                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="Renter Your Password" variant="outlined" value={confirmNewPassword} sx={{ marginTop: "20px" }} onChange={(e) => setConfirmNewPassword(e.target.value)} />
+                                        <TextField id="outlined-basic" className="Profile-Basic-Body-Input" label="New Password" variant="outlined" value={newPassword} sx={{ marginTop: "20px" }} onChange={(e) => setNewPassword(e.target.value)} />
                                         <div className="Profile-Password-Button">
-                                            <Button sx={{ backgroundColor: "#2d2f31", color: "#fff", marginTop: "10px" }}>Save</Button>
+                                            <Button sx={{ backgroundColor: "#2d2f31", color: "#fff", marginTop: "10px" }} onClick={handleSavePassword}>Save</Button>
                                         </div>
                                     </div>
                                     <div className="Profile-Phone-Division">

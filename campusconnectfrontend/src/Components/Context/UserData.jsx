@@ -27,6 +27,8 @@ export const UserDataProvider = ({ children }) => {
       userMobileNumber: '',
       blockedUsers:[],
       reportedUsers:[],
+      createdCourseIds:[],
+      enrolledCourseIds:[],
       // profilePrivacySetting: [], // Initialize as empty array
       // profileNotificationEmail: [], // Initialize as empty array
       // enrolledCourseId: [], // Initialize as empty array

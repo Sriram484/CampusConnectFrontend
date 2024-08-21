@@ -190,9 +190,20 @@
 }
 
 .Profile-Pic-Previewer-Body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 200px;
     height: 200px;
     max-height: 200px;
+    border: 1px solid black;
+    margin-top: 5px;
+
+}
+.Profile-Pic-Previewer-Body img{
+    min-height: 150px;
+    height: 150px;
+    max-height: 150px;
     border: 1px solid black;
     margin-top: 5px;
 

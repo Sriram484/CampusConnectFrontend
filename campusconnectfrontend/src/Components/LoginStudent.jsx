@@ -199,6 +199,8 @@ const LoginStudent = (riveProps = {}) => {
                   userMobileNumber: userData.mobileNumber,
                   blockedUsers: userData.blockedUsers,
                   reportedUsers: userData.reportedUsers,
+                  createdCourseIds:userData.createdCourseIds,
+                  enrolledCourseIds:userData.enrolledCourseIds
                 });
               } catch (err) {
                 throw err;

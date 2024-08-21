@@ -18,20 +18,22 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import "../Assets/CSS/Nav.css"
-import { Badge, createTheme } from '@mui/material';
+import { Avatar, Badge, createTheme, Menu, MenuItem, Tooltip } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { useLocation } from 'react-router';
 import { useFormData } from './Context/UserData';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+
+import img from "../Assets/Image/ProfilePNG.png"
 const drawerWidth = 240;
 
 const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 650,  // Default small breakpoint
-      md: 900,
+      sm: 920,  // Default small breakpoint
+      md: 1000,
       lg: 1200,
       xl: 1536,
       custom: 650,  // Custom breakpoint at 650px
@@ -40,44 +42,77 @@ const theme = createTheme({
 });
 
 
+const pages = ['Products', 'Pricing', 'Blog'];
+const settings = ['Cart', 'My Learning', 'Profile', 'Instructor DashBoard', 'Logout'];
+
 function NavBar() {
+
+
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleCloseUserMenu = (setting) => {
+    console.log(setting);
+
+    switch (setting) {
+      case 'Cart':
+        navigate('/addToCart');
+        break;
+      case 'My Learning':
+        navigate('/myLearning');
+        break;
+      case 'Profile':
+        navigate('/profile');
+        break;
+      case 'Instructor DashBoard':
+        navigate('/instructordashboard');
+        break;
+      case 'Logout':
+        // Handle logout logic here
+        break;
+      default:
+        break;
+    }
+    setAnchorElUser(null);
+  };
+
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [appBarBg, setAppBarBg] = React.useState('transparent');
   const location = useLocation();
 
-  const { formData,setFormData } = useFormData() || { formData: {} };
+  const { formData, setFormData } = useFormData() || { formData: {} };
   // console.log(formData);
-  
- 
+
+
 
   // Determine which item to show in the navigation
   const userNavItem = formData.userFirstName === ''
     ? { name: 'Login/Register', path: '/login' }
-    : { name: 'Profile', path: '/profile' };
+    : {};
 
-    // Additional items for logged-in users
-const loggedInItems = formData.userFirstName !== ''
-? [
-    { name: 'Add to Cart', path: '/addToCart' },
-    { name: 'Add to WishList', path: '/addToWishList' },
-  ]
-: [];
+  // Additional items for logged-in users
+
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Course', path: '/course' },
-    { name: 'Contact Us', path: '/contact' },
-    ...loggedInItems,
     userNavItem,
-    ...(formData.role === 'ADMIN' ? [{ name: 'Dashboard', path: '/dashboard' }] : [])
+    ...(formData.role === 'ADMIN' ? [{ name: 'Admin Dashboard', path: '/dashboard' }] : [])
   ];
 
   React.useEffect(() => {
-    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' 
-      || location.pathname === '/dashboard' || location.pathname === '/addToCart' || location.pathname === '/addToWishList' 
-      || location.pathname === '/courseMainBody') {
+    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile'
+      || location.pathname === '/dashboard' || location.pathname === '/addToCart' || location.pathname === '/addToWishList'
+      || location.pathname === '/courseMainBody'
+      || location.pathname === '/myLearning'
+      || location.pathname === '/instructordashboard'
+      || location.pathname === '/courseLearningPage'
+    ) {
       setAppBarBg('black')
     }
     else {
@@ -94,9 +129,13 @@ const loggedInItems = formData.userFirstName !== ''
   };
 
   const handleScroll = () => {
-    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile' 
+    if (window.scrollY > 0 || location.pathname === '/course' || location.pathname === '/contact' || location.pathname === '/profile'
       || location.pathname === '/dashboard' || location.pathname === '/addToCart' || location.pathname === '/addToWishList'
-      || location.pathname === '/courseMainBody') {
+      || location.pathname === '/courseMainBody'
+      || location.pathname === '/myLearning'
+      || location.pathname === '/instructordashboard'
+      || location.pathname === '/courseLearningPage'
+    ) {
       setAppBarBg('black')
     }
     else {
@@ -113,6 +152,8 @@ const loggedInItems = formData.userFirstName !== ''
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
     setFormData({}); // Clear user data
     window.location.reload(); // Refresh the page
   };
@@ -153,23 +194,14 @@ const loggedInItems = formData.userFirstName !== ''
                 // onClick={() => handleNavigation(path)}
                 >
                   <Link smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
-                  {renderNavItemContent(name)}
+                    {renderNavItemContent(name)}
                   </Link>
                 </ListItemText>
               </ListItemButton>
             </ListItem>
           ))}
-          {formData.userFirstName && (
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLogout}>
-                <ListItemText>
-                  <Link smooth style={{ textDecoration: 'none', color: 'inherit' }}>
-                    Logout
-                  </Link>
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
-          )}
+
+
 
         </List>
       </Box>
@@ -179,6 +211,8 @@ const loggedInItems = formData.userFirstName !== ''
   const container = window.document.body;
 
   return (
+    //Pc
+
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -200,7 +234,12 @@ const loggedInItems = formData.userFirstName !== ''
             >
               Campus Connect
             </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Box sx={{
+              display: { xs: 'none', sm: 'flex' },
+              alignItems: 'center', // Align items vertically centered
+              justifyContent: 'end', // Distribute space between items
+              flexGrow: 1,
+            }} >
               {navItems.map(({ name, path }) => (
                 <Button key={name}
                   sx={{
@@ -210,30 +249,48 @@ const loggedInItems = formData.userFirstName !== ''
                     },
                   }}
                   onClick={() => navigate(path, { replace: true })}
-                // onClick={() => handleNavigation(path)}
-
                 >
                   <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
 
-                  {renderNavItemContent(name)}
+                    {renderNavItemContent(name)}
                   </div>
                 </Button>
               ))}
               {formData.userFirstName && (
-                <Button key={formData.userFirstName}
-                  sx={{
-                    color: 'rgba(248, 248, 248, 1)',
-                    '&:hover': {
-                      color: '#f5a425',
-                    },
-                  }}
-                  onClick={handleLogout}
-                >
-                  <div smooth style={{ textDecoration: 'none', color: 'inherit' }} scroll={el => scrollWithOffset(el)}>
-                    Logout
-                  </div>
-                </Button>
+                <Box sx={{ maxWidth: "40px" }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="Remy Sharp" src={img} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)} sx={{ color: 'black' }}>
+                        <Typography textAlign="center" sx={{ color: 'black' }}>
+                          {setting}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
               )}
+
             </Box>
           </Toolbar>
         </AppBar>

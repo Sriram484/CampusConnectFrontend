@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.CourseBuilder-Body p{
+    color: black;
+}
+
+.CourseBuilder-Heading-Container{
+    max-width: 60vw;
+    padding-left: 24px;
+}
+
+.ql-editor p {
+    color: black;
+  }

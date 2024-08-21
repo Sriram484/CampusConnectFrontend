@@ -11,6 +11,13 @@ import { useFormData } from '../Context/UserData';
 import CourseCardMainBody from '../CourseCardMainBody';
 import AddToCart from '../AddToCart';
 import AddToWishList from '../AddToWishList';
+import CourseBuilder from '../CourseBuilder';
+import CourseStructure from '../CourseBuilderStructurePage/CourseStructure';
+import PublicProfilePage from '../PublicProfile';
+import CourseLearningPage from '../CourseLearningPage';
+import MyLearning from '../MyLearning';
+import InstructorDashboard from '../IntructorDashboard';
+import MyMyLearning from '../MyLearning';
 
 
 const MainRoutingDashboard = () => {
@@ -18,12 +25,13 @@ const MainRoutingDashboard = () => {
 
   // Conditionally render routes based on formData
   const routes = [
-    // <Route key="/" path="/" element={<Home />} />,
-    <Route key="/" path="/" element={<AdminDashboard />} />,
-    // <Route key="/" path="/" element={<Profile />} />,
-    // <Route key="/" path="/" element={<CourseCardMainBody />} />,
-    // <Route key="/" path="/" element={<AddToCart />} />,
-    // <Route key="/" path="/" element={<AddToWishList />} />,
+    <Route key="/" path="/" element={<Home />} />,
+    // <Route key="/" path="/" element={<CourseBuilder />} />, //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    // <Route key="/" path="/" element={<PublicProfilePage />} />,              
+    <Route key="/" path="/" element={<CourseLearningPage />} />,
+    // <Route key="/" path="/" element={<MyLearning />} />,
+    // <Route key="/" path="/" element={<InstructorDashboard />} />,
+    <Route key="/" path="/" element={<CourseStructure />} />,
     <Route key="/courseMainBody" path="/courseMainBody" element={<CourseCardMainBody />} />,
     <Route key="/about" path="/about" element={<About />} />,
     <Route key="/course" path="/course" element={<Course />} />,
@@ -38,6 +46,19 @@ const MainRoutingDashboard = () => {
   }
   if (formData && formData.name !== '') {
     routes.push(<Route key="/addToWishList" path="/addToWishList" element={<AddToWishList />} />);
+  }
+  if (formData && formData.name !== '') {
+    routes.push(<Route key="/myLearning" path="/myLearning" element={<MyMyLearning />} />);
+  }
+  
+  if (formData && formData.name !== '') {
+    routes.push(<Route key="/instructordashboard" path="/instructordashboard" element={<InstructorDashboard />} />);
+  }
+  if (formData && formData.name !== '') {
+    routes.push(<Route key="/courseBuilder" path="/courseBuilder" element={<CourseBuilder />} />);
+  }
+  if (formData && formData.name !== '') {
+    routes.push(<Route key="/courseLearningPage" path="/courseLearningPage" element={<CourseLearningPage />} />);
   }
   
   if (formData && formData.role === 'ADMIN') {

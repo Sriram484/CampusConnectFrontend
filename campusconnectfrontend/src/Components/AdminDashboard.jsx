@@ -237,198 +237,162 @@ const reportedColumns = [
 ];
 const blockedColumns = [
     { id: 's.no', label: 'S.No', minWidth: 170 },
-    { id: 'BlockedUserName', label: 'User Name', minWidth: 150 },
-    { id: 'BlockedEmail', label: 'Email', minWidth: 150 },
-    { id: 'BlockedDate', label: 'Blocked Date', minWidth: 150 },
+    { id: 'name', label: 'User Name', minWidth: 150 },
+    { id: 'email', label: 'Email', minWidth: 150 },
+    { id: 'blockedOn', label: 'Blocked Date', minWidth: 150 },
 
 ];
-
-const blockedData = [
-    {
-        BlockedUserName: 'John Doe',
-        BlockedEmail: 'johndoe@example.com',
-        BlockedDate: '2024-08-01',
-    },
-    {
-        BlockedUserName: 'Jane Smith',
-        BlockedEmail: 'janesmith@example.com',
-        BlockedDate: '2024-07-28',
-    },
-    {
-        BlockedUserName: 'Alice Johnson',
-        BlockedEmail: 'alicej@example.com',
-        BlockedDate: '2024-06-15',
-    },
-    {
-        BlockedUserName: 'Bob Brown',
-        BlockedEmail: 'bobbrown@example.com',
-        BlockedDate: '2024-05-30',
-    },
-    {
-        BlockedUserName: 'Charlie Black',
-        BlockedEmail: 'charlieblack@example.com',
-        BlockedDate: '2024-04-20',
-    },
-    {
-        BlockedUserName: 'Emily White',
-        BlockedEmail: 'emilywhite@example.com',
-        BlockedDate: '2024-03-10',
-    },
-    {
-        BlockedUserName: 'David Green',
-        BlockedEmail: 'davidgreen@example.com',
-        BlockedDate: '2024-02-05',
-    },
-    {
-        BlockedUserName: 'Sophia Blue',
-        BlockedEmail: 'sophiablue@example.com',
-        BlockedDate: '2024-01-25',
-    },
-    {
-        BlockedUserName: 'Michael Red',
-        BlockedEmail: 'michaelred@example.com',
-        BlockedDate: '2023-12-31',
-    },
-    {
-        BlockedUserName: 'Laura Pink',
-        BlockedEmail: 'laurapink@example.com',
-        BlockedDate: '2023-11-20',
-    },
-];
-
-
-const reportedata = [
-    {
-        ReportedBy: 'John Doe',
-        ReportedPerson: 'Jane Smith',
-        ReportedReview: 'The service was not satisfactory. I ordered a meal and had to wait over an hour before it was served. When it finally arrived, it was cold and unappetizing. The staff was inattentive and seemed overwhelmed despite the restaurant not being too busy. I requested to speak with a manager, but none were available. I feel my concerns were not taken seriously. This was a special occasion, and it was ruined due to poor service. I hope the management takes steps to improve their service quality in the future.',
-        Reason: 'Poor Service: The establishment failed to meet the basic expectations of timely service and food quality. There appeared to be a lack of training or adequate staffing to handle orders promptly. Customer complaints were not addressed in a timely manner, indicating a lack of managerial oversight. Poor service often results in customer dissatisfaction, negative reviews, and loss of business. Addressing these issues promptly and effectively can help in improving customer satisfaction and business reputation. Continuous training and customer feedback can be invaluable in addressing such service-related issues and in retaining customer loyalty.',
-        ReportedOn: '2024-08-01',
-    },
-    {
-        ReportedBy: 'Alice Johnson',
-        ReportedPerson: 'Bob Brown',
-        ReportedReview: 'The product was defective. After using the item just once, it stopped functioning altogether. I followed all the instructions carefully, yet it still failed. I attempted to contact customer service multiple times but received no response. I had high expectations due to the brand’s reputation, but this experience has left me extremely disappointed. I have requested a replacement or a refund but have yet to receive a satisfactory response. This has been an inconvenient and frustrating experience, and I am not sure if I would consider purchasing from this brand again.',
-        Reason: 'Defective Product: The item sold did not meet quality standards and failed during normal use. Defects can arise from manufacturing errors, poor quality materials, or inadequate quality control processes. Such issues can damage the reputation of a brand and result in lost customers. A comprehensive quality control system and prompt customer support are critical in addressing such issues. Offering returns, exchanges, or refunds can help maintain customer trust. Engaging in quality assurance practices can prevent defective products from reaching consumers, and regular feedback collection can aid in improving product quality.',
-        ReportedOn: '2024-08-02',
-    },
-    {
-        ReportedBy: 'Charlie Black',
-        ReportedPerson: 'Emily White',
-        ReportedReview: 'The customer service was rude and unprofessional. When I approached the service desk for assistance, the representative was dismissive and showed no interest in resolving my issue. Their tone was harsh and they made sarcastic remarks when I asked for clarification on the return policy. I felt humiliated in front of other customers. I expect courteous and professional behavior from staff, especially in a well-known store. This experience has tarnished my opinion of the brand, and I am hesitant to return. Professionalism and respect should be the cornerstone of any customer-facing role.',
-        Reason: `Rude Behavior: The staff member displayed a lack of courtesy and professionalism towards the customer. Rude behavior can lead to dissatisfaction, complaints, and loss of repeat business. It's essential for businesses to train their employees in customer service etiquette and emphasize the importance of treating customers with respect. Addressing complaints swiftly and offering apologies or compensations can help repair relationships. Regular training and monitoring can ensure employees uphold the company’s standards. Encouraging a positive work environment and setting clear expectations can help in preventing such incidents in the future.`,
-        ReportedOn: '2024-08-03',
-    },
-    {
-        ReportedBy: 'David Green',
-        ReportedPerson: 'Olivia Blue',
-        ReportedReview: 'The delivery of my package was delayed significantly, arriving nearly two weeks after the expected delivery date. I did not receive any updates or notifications from the courier service regarding the delay. When I contacted customer support, I was placed on hold for an extended period and did not receive a satisfactory explanation. The delay caused significant inconvenience, as the package contained essential items needed urgently. I am considering using alternative services in the future. It’s crucial for companies to maintain transparent communication with their customers and provide timely updates on delivery statuses.',
-        Reason: 'Late Delivery: The package was not delivered within the promised timeframe, causing inconvenience to the customer. Delays can occur due to various reasons, such as logistical issues, but effective communication and proactive measures can mitigate the impact. Providing real-time updates, offering compensation or expedited shipping for future orders can help maintain customer satisfaction. Building reliable delivery partnerships and employing efficient tracking systems are essential in preventing delays. Understanding customer priorities and maintaining transparency throughout the process can help build trust and ensure positive experiences, even when unforeseen delays occur.',
-        ReportedOn: '2024-08-04',
-    },
-    {
-        ReportedBy: 'Eve Brown',
-        ReportedPerson: 'Chris Grey',
-        ReportedReview: 'I received misleading information regarding a promotion. The advertisement stated that the discount was applicable store-wide, but when I attempted to use it, I was informed it only applied to select items. This lack of transparency was frustrating, and I felt deceived. The staff was unable to provide a clear explanation, further adding to my frustration. As a loyal customer, I expect honesty and clarity in all communications. Misleading advertising not only damages trust but also diminishes the overall shopping experience. Clear and accurate information is essential for maintaining customer trust.',
-        Reason: `False Information: Misleading advertisements or unclear policies can erode customer trust and damage brand reputation. Ensuring all promotions and advertisements are clear, concise, and transparent can prevent misunderstandings and maintain customer satisfaction. It's important for businesses to train their staff to communicate promotional terms effectively and ensure all marketing materials are reviewed for accuracy. Addressing any misinformation promptly and compensating affected customers can help rebuild trust. Regularly reviewing and updating promotional strategies and communication channels can help in preventing similar issues and ensure a positive customer experience.`,
-        ReportedOn: '2024-08-05',
-    },
-    {
-        ReportedBy: 'Frank White',
-        ReportedPerson: 'Nancy Black',
-        ReportedReview: 'I encountered issues with pricing during my last purchase. The price listed on the shelf did not match the amount charged at the checkout. I brought this to the attention of the cashier, who seemed unaware and unhelpful. I had to wait for a supervisor to resolve the issue, which took an unreasonable amount of time. This discrepancy and the handling of the situation were disappointing. It’s important for stores to ensure pricing accuracy and train staff to handle such situations effectively. I expect better service and transparency in future transactions.',
-        Reason: 'Overcharging: Pricing discrepancies can result from errors in labeling, system issues, or lack of communication between departments. Such issues can lead to customer dissatisfaction and mistrust. Implementing regular audits and training employees on pricing policies can help prevent overcharging incidents. Quick resolution of issues and offering apologies or compensation can mitigate negative impacts. Transparency and proactive measures are essential in maintaining customer trust. Ensuring pricing accuracy across all platforms and channels can prevent misunderstandings and ensure customers have a consistent and positive shopping experience, leading to customer loyalty and satisfaction.',
-        ReportedOn: '2024-08-06',
-    },
-    {
-        ReportedBy: 'George Blue',
-        ReportedPerson: 'Sarah Green',
-        ReportedReview: 'I witnessed unprofessional conduct from a staff member during my visit. They were using inappropriate language while speaking to another employee within earshot of customers. This behavior was unsettling and reflects poorly on the company. I expect a professional environment when visiting any establishment, and this experience was disappointing. It’s important for businesses to enforce strict conduct guidelines and ensure employees adhere to them. Unprofessional behavior can damage a company’s reputation and lead to customer loss. Businesses should prioritize creating a respectful and professional work environment to ensure a positive customer experience.',
-        Reason: 'Unprofessional: Inappropriate behavior or language by staff members can tarnish a company’s image and result in customer complaints. Implementing clear conduct guidelines and providing regular training can help prevent such incidents. Encouraging a positive and respectful work environment can promote professionalism among employees. Addressing any incidents of unprofessional behavior promptly and effectively can mitigate damage and maintain customer trust. Fostering a culture of respect and accountability can ensure employees represent the company positively and maintain a high standard of service, contributing to a positive customer experience and brand reputation.',
-        ReportedOn: '2024-08-07',
-    },
-    {
-        ReportedBy: 'Hannah Pink',
-        ReportedPerson: 'Tom Yellow',
-        ReportedReview: 'The item I purchased was not as described on the website. The color and dimensions did not match the description or images, leading to disappointment upon delivery. I contacted customer service for clarification and was informed that there was an error in the listing. This experience was frustrating, as I relied on accurate descriptions for my purchase decision. It’s important for businesses to ensure product listings are accurate and up-to-date to prevent customer dissatisfaction. I hope the company reviews its processes to avoid such discrepancies in the future.',
-        Reason: 'Misleading Description: Inaccurate product descriptions can lead to customer dissatisfaction and returns. Ensuring that all product information is accurate, including images and specifications, is crucial in maintaining customer trust. Regularly updating product listings and conducting quality checks can prevent misinformation. Promptly addressing any discrepancies and offering resolutions such as returns or exchanges can help maintain customer satisfaction. Implementing clear communication channels between product teams and customer service can ensure any issues are resolved efficiently. A commitment to transparency and accuracy in product descriptions is essential for customer retention and brand reputation.',
-        ReportedOn: '2024-08-08',
-    }
-];
-
-
-
 
 function AdminDashboard() {
+    //Side DashBoard
+    const [selectedItem, setSelectedItem] = React.useState('Course');
 
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        console.log(selectedItem);
+
+    };
 
     //ReportedData
-    const [reportedData,setReportedData] = React.useState([]);
-    React.useEffect(()=>{
+    const [reportedData, setReportedData] = React.useState([]);
 
-        const fetchReportedPerson = async()=>{
-            const token = localStorage.getItem("token");
-            try{
-                const response = await axios.get(` http://localhost:1010/adminuser/api/reports/get`, 
+    const fetchReportedPerson = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await axios.get(` http://localhost:1010/admin/api/reports/get`,
                 {
-                    headers: {Authorization: `Bearer ${token}`}
+                    headers: { Authorization: `Bearer ${token}` }
                 })
-                console.log(response);
-                setReportedData(response.data);
-                
-            }catch(err){
-                throw err;
-            }
-        
+            console.log(response);
+            setReportedData(response.data);
+
+        } catch (err) {
+            throw err;
         }
+
+    }
+    React.useEffect(() => {
         fetchReportedPerson()
-    },[])
-    React.useEffect(()=>{
+    }, [])
+    React.useEffect(() => {
 
-       console.log(reportedData);
-       
-    },[reportedData])
+        console.log(reportedData);
 
-     //Reported Search Bar
+    }, [reportedData,selectedItem])
 
-     const [searchReportTerm, setSearchReportTerm] = React.useState('');
-     const [filteredReportedUsers, setFilteredReportedUsers] = React.useState(reportedData);
- 
-     const handleSearchReportChange = (event) => {
-         console.log(event.target.value);
-         
-         setSearchReportTerm(event.target.value);
-     };
-     React.useEffect(() => {
-         const filteredUsers = reportedData.filter(user =>
-             reportedColumns.some(column =>
-                 user[column.id] ? user[column.id].toString().toLowerCase().includes(searchReportTerm.toLowerCase()) : false
-             )
-         );
-         setFilteredReportedUsers(filteredUsers);
-     }, [searchReportTerm, reportedData, reportedColumns]);
+    //Reported Search Bar
 
-     //Reported Function
+    const [searchReportTerm, setSearchReportTerm] = React.useState('');
+    const [filteredReportedUsers, setFilteredReportedUsers] = React.useState(reportedData);
 
-     const handleBlockButton=async(row)=>{
+    const handleSearchReportChange = (event) => {
+        console.log(event.target.value);
+
+        setSearchReportTerm(event.target.value);
+    };
+    React.useEffect(() => {
+        const filteredUsers = reportedData.filter(user =>
+            reportedColumns.some(column =>
+                user[column.id] ? user[column.id].toString().toLowerCase().includes(searchReportTerm.toLowerCase()) : false
+            )
+        );
+        setFilteredReportedUsers(filteredUsers);
+    }, [searchReportTerm, reportedData, reportedColumns]);
+
+    //Reported Function
+    const handleBlockButton = async (row) => {
         console.log(reportedData);
         console.log(row);
-        
-        
+        const token = localStorage.getItem("token");
 
-        // try{
-        //     const response = await axios.put(`http://localhost:1010/adminuser/api/reports/${row.}`, userData,
-        //     {
-        //         headers: {Authorization: `Bearer ${token}`}
-        //     })
-        //     return response.data;
-        // }catch(err){
-        //     throw err;
-        // }
-        
-     }
+        try {
+            const response = await axios.post(
+                `http://localhost:1010/admin/api/blocked/block/${row.reportedUserId}`,
+                {},  // No data payload needed for this request
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+            fetchReportedPerson()
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    const handleDeleteClick = async (row) => {
+        console.log("Reported Data:", reportedData);
+        console.log("Row Data:", row);
+        const token = localStorage.getItem("token");
+        console.log("Token:", token);
+    
+        try {
+            const response = await axios.delete(
+                `http://localhost:1010/admin/api/reports/${row.reportedUserId}`,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+            console.log("Response:", response);
+            fetchReportedPerson();
+        } catch (err) {
+            console.error("Error:", err.response);
+            if (err.response && err.response.status === 403) {
+                console.error("Authorization error: Access is forbidden. Check your token and permissions.");
+            } else {
+                console.error("An unexpected error occurred:", err);
+            }
+        }
+    };
+    
 
-   
+
+    //Blocked Data
+
+    const [blockedData, setBlockedData] = React.useState([]);
+    React.useEffect(() => {
+
+        const fetchBlockedPerson = async () => {
+            const token = localStorage.getItem("token");
+            try {
+                const response = await axios.get(`http://localhost:1010/admin/api/blocked/getBlockedUser`,
+                    {
+                        headers: { Authorization: `Bearer ${token}` }
+                    })
+                setBlockedData(response.data);
+                
+                
+            } catch (err) {
+                throw err;
+            }
+
+        }
+        fetchBlockedPerson()
+    }, [selectedItem])
+    React.useEffect(() => {
+
+        console.log(blockedData);
+
+    }, [blockedData])
+
+
+    //Blocked Search Bar
+    const [searchBlockedTerm, setSearchBlockedTerm] = React.useState('');
+    const [filteredBlockedUsers, setFilteredBlockedUsers] = React.useState(blockedData);
+
+    const handleSearchBlockedChange = (event) => {
+        console.log(event.target.value);
+
+        setSearchBlockedTerm(event.target.value);
+    };
+
+    React.useEffect(() => {
+        const filteredUsers = blockedData.filter(user =>
+            blockedColumns.some(column =>
+                user[column.id] ? user[column.id].toString().toLowerCase().includes(searchBlockedTerm.toLowerCase()) : false
+            )
+        );
+        setFilteredBlockedUsers(filteredUsers);
+    }, [searchBlockedTerm, blockedData, blockedColumns]);
+
 
 
 
@@ -475,34 +439,17 @@ function AdminDashboard() {
             },
         ],
     });
+    
 
     const [searchTerm, setSearchTerm] = React.useState('');
 
-    const handleSearchChange = (event) => {        
+    const handleSearchChange = (event) => {
         console.log(event);
         setSearchTerm(event.target.value);
     };
 
-   
 
-    //Blocked Search Bar
-    const [searchBlockedTerm, setSearchBlockedTerm] = React.useState('');
-    const [filteredBlockedUsers, setFilteredBlockedUsers] = React.useState(blockedData);
 
-    const handleSearchBlockedChange = (event) => {
-        console.log(event.target.value);
-        
-        setSearchBlockedTerm(event.target.value);
-    };
-
-    React.useEffect(() => {
-        const filteredUsers = blockedData.filter(user =>
-            blockedColumns.some(column =>
-                user[column.id] ? user[column.id].toString().toLowerCase().includes(searchBlockedTerm.toLowerCase()) : false
-            )
-        );
-        setFilteredBlockedUsers(filteredUsers);
-    }, [searchBlockedTerm, blockedData, blockedColumns]);
 
 
 
@@ -527,26 +474,19 @@ function AdminDashboard() {
 
     }, [])
 
-    const [selectedItem, setSelectedItem] = React.useState('Course');
-
-    const handleItemClick = (item) => {
-        setSelectedItem(item);
-        console.log(selectedItem);
-
-    };
 
     const [editMode, setEditMode] = React.useState(null);
     const [editedRows, setEditedRows] = React.useState(CourseDatabase[courseName]);
-   
+
 
     React.useEffect(() => {
         const filteredRows = CourseDatabase[courseName].filter(row =>
-          columns.some(column =>
-            row[column.id] ? row[column.id].toString().toLowerCase().includes(searchTerm.toLowerCase()) : false
-          )
+            columns.some(column =>
+                row[column.id] ? row[column.id].toString().toLowerCase().includes(searchTerm.toLowerCase()) : false
+            )
         );
         setEditedRows(filteredRows);
-      }, [searchTerm, CourseDatabase, columns, courseName]);
+    }, [searchTerm, CourseDatabase, columns, courseName]);
 
     const handleEditClick = (index) => {
         setEditMode(index);
@@ -761,7 +701,7 @@ function AdminDashboard() {
                                                                 ) : column.id === 'action' ? (
                                                                     <div>
                                                                         <Button onClick={() => handleEditClick(index)}>Edit</Button>
-                                                                        <Button>Delete</Button>
+                                                                        <Button onClick={() => handleDeleteClick(index)}>Delete</Button>
                                                                     </div>
                                                                 ) : column.id === 'Image' ? (
                                                                     <div>
@@ -831,11 +771,11 @@ function AdminDashboard() {
                                                                         >
                                                                             {column.id === 'action' ? (
                                                                                 <div>
-                                                                                    <Button onClick={()=>{handleBlockButton(row)}}>Block</Button>
-                                                                                    <Button>Reject</Button>
+                                                                                    <Button onClick={() => { handleBlockButton(row) }}>Block</Button>
+                                                                                    <Button onClick={() => { handleDeleteClick(row) }}>Reject</Button>
                                                                                 </div>
                                                                             ) : column.id === 'ReportedReview' || column.id === 'Reason' ? (
-                                                                                <DahBoardReadMore text={value} maxWords={50} />
+                                                                                <DahBoardReadMore text={value} maxWords={10} />
                                                                             ) : (
                                                                                 value
                                                                             )}
@@ -904,7 +844,7 @@ function AdminDashboard() {
                                                                                     <Button>Reject</Button>
                                                                                 </div>
                                                                             ) : column.id === 'ReportedReview' || column.id === 'Reason' ? (
-                                                                                <DahBoardReadMore text={value} maxWords={50} />
+                                                                                <DahBoardReadMore text={value} maxWords={10} />
                                                                             ) : (
                                                                                 value
                                                                             )}

@@ -7,19 +7,23 @@ import NavBar from './Navbar';
 import { useCourseData } from './Context/CourseData';
 import "react-multi-carousel/lib/styles.css"
 import HashLoader from "react-spinners/HashLoader";
+import Lottie from "lottie-react"
+import Building from "../Assets/Lottie/Building.json"
 
 const Course = () => {
 
-    const [activeCategory, setActiveCategory] = useState("19");
+
     const { CourseDatabase, courseCategories } = useCourseData()
+    console.log(CourseDatabase);
+
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [hiddenElements, setHiddenElements] = useState([]);
 
-    const [activeNavCourse, setActiveNavCourse] = useState("Computer");
+    const [activeNavCourse, setActiveNavCourse] = useState("Development");
     // console.log(activeNavCourse);
     // console.log(CourseDatabase);
-    const [activeCourseData, setActiveCourseData] = useState(CourseDatabase[activeNavCourse]);
+    const [activeCourseData, setActiveCourseData] = useState(CourseDatabase["Development"]);
     // console.log(activeCourseData);
 
     // Function to handle clicking on a category
@@ -195,77 +199,88 @@ const Course = () => {
     return (
 
         <div className='Course-Container' id='course' style={{ marginTop: "50px" }}>
-                <div  style={{
-                    visibility: loading ? 'visible' : 'hidden',
-                    display: loading ? 'flex' : 'none',
-                    justifyContent: "center",
-                    alignItems: "center",
-                    position: 'fixed', // Fix the position of the loader
-                    top: 0, 
-                    left: 0, 
-                    right: 0, 
-                    bottom: 0, 
-                    backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
-                    zIndex: 9999, // Ensure it appears above other content
-                }}>
-                    <HashLoader
+            <div style={{
+                visibility: loading ? 'visible' : 'hidden',
+                display: loading ? 'flex' : 'none',
+                justifyContent: "center",
+                alignItems: "center",
+                position: 'fixed', // Fix the position of the loader
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255, 255, 255)', // Optional: Add a background color with opacity
+                zIndex: 9999, // Ensure it appears above other content
+            }}>
+                <HashLoader
 
-                    />
-                </div>
-                <div className='Course-Body'  style={{visibility: loading ? 'hidden' : 'visible'}}>
-                    <div className='Course-Headings'>
-                        <div className='Course-MainHeading'>
-                            All the Skills In One Place
-                        </div>
-                        <div className='Course-SubHeading'>
-                            From critical skills to technical topics,
-                            Polar Portal supports your professional development.
-                        </div>
+                />
+            </div>
+            <div className='Course-Body' style={{ visibility: loading ? 'hidden' : 'visible' }}>
+                <div className='Course-Headings'>
+                    <div className='Course-MainHeading'>
+                        All the Skills In One Place
                     </div>
+                    <div className='Course-SubHeading'>
+                        From critical skills to technical topics,
+                        Polar Portal supports your professional development.
+                    </div>
+                </div>
 
-                    <div className='Course-List' style={{visibility: loading ? 'hidden' : 'visible'}}>
-                        <Carousel
-                            responsive={CourseNavResponsive}
-                            arrows={false}
-                        >
-                            {courseCategories.map((cat) => (
-                                <div
-                                    key={cat.name}
-                                    className={`category-item ${activeNavCourse === cat.name ? "activeNavCourse" : ""
-                                        }`}
-                                    onClick={() => handleCategoryClick(cat.name)}
-                                >
-                                    {cat.name}
-                                </div>
-                            ))}
-                            <div >
-                                Anything Else?
+                <div className='Course-List' style={{ visibility: loading ? 'hidden' : 'visible' }}>
+                    <Carousel
+                        responsive={CourseNavResponsive}
+                        arrows={false}
+                    >
+                        {courseCategories.map((cat) => (
+                            <div
+                                key={cat.name}
+                                className={`category-item ${activeNavCourse === cat.name ? "activeNavCourse" : ""
+                                    }`}
+                                onClick={() => handleCategoryClick(cat.name)}
+                            >
+                                {cat.name}
                             </div>
-                        </Carousel>
-                    </div>
-                    <div className="Course-Carousel" style={{visibility: loading ? 'hidden' : 'visible'}}>
-                        <Carousel responsive={courseCloud} className='CourseCardListerBody' style={{display: loading ? 'none' : 'block'}}>
-                            {activeCourseData.map((course, index) => (
-                                <CourseCard
-                                    key={index}
-                                    Course_Name={course.Course_Name}
-                                    Course_Author={course.Course_Author}
-                                    Ratings={course.Ratings}
-                                    Price={course.Price}
-                                    NoOfCustomers={course.NoOfCustomers}
-                                    Image={course.Image}
-                                    open={open && currentCard === index}
-                                    anchorEl={anchorEl}
-                                    handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
-                                    handlePopoverClose={handlePopoverClose}
-                                    loading={loading}
-                               
-                                />
-                            ))}
-                        </Carousel>
-                    </div>
+                        ))}
+                        <div >
+                            Anything Else?
+                        </div>
+                    </Carousel>
                 </div>
-            
+                <div className="Course-Carousel" style={{ visibility: loading ? 'hidden' : 'visible' }}>
+
+                        {
+                            activeCourseData &&
+                            activeCourseData.length > 0 ? (
+                                <Carousel responsive={courseCloud} className='CourseCardListerBody'>
+                                    {activeCourseData.map((course, index) => (
+                                        <CourseCard
+                                            key={index}
+                                            Course_Name={course.title}
+                                            Course_Author="Puli"
+                                            Ratings={5}
+                                            Price={course.priceTier}
+                                            NoOfCustomers={course.enrolledUserIds.length}
+                                            Image={course.courseImage}
+                                            open={open && currentCard === index}
+                                            anchorEl={anchorEl}
+                                            handlePopoverOpen={(event) => handlePopoverOpen(event, index)}
+                                            handlePopoverClose={handlePopoverClose}
+                                            loading={loading}
+                                            courseObject ={course}
+                                        />
+                                    ))}
+                                </Carousel>
+                            ) : (
+                                <div style={{display:"flex",justifyContent:"center",alignItems:"center",minwidth:"90vw",flexDirection:"column"}}>
+                                    <h3>Coming Soon!!!</h3>
+                                    <Lottie  animationData = {Building}   height={400} width={400} />
+                                </div>
+                            )
+                        }
+                </div>
+            </div>
+
         </div>
     )
 }

@@ -1,0 +1,28 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.CourseLearningPage p{
+    color: black;
+}
+
+.ql-editor * {
+    margin: 0; /* Remove default margins for all elements */
+    padding: 0; /* Remove default padding for all elements */
+}
+
+/* You can also customize specific elements if needed */
+.ql-editor p {
+    margin-bottom: 16px; /* Example: Add some margin at the bottom of paragraphs */
+    font-size: 18px;
+}
+.ql-editor li{
+    margin-bottom: 10px; /* Example: Add some margin at the bottom of paragraphs */
+    font-size: 18px;
+}
+
+.ql-editor h1, .ql-editor h2, .ql-editor h3 {
+    margin-top: 20px; /* Add top margin to headings */
+    margin-bottom: 10px; /* Add bottom margin to headings */
+}

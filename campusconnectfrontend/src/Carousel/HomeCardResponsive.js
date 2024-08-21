@@ -26,6 +26,12 @@ export const responsive = {
   };
 
   export const CourseNavResponsive = {
+    supersuperLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 10000, min: 4000 },
+      items: 10,
+      slidesToSlide: 2,
+    },
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 1400 },
